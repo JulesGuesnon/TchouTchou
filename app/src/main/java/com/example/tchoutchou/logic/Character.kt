@@ -1,5 +1,6 @@
 package com.example.tchoutchou.logic
 
+import com.example.tchoutchou.R
 import java.lang.Exception
 
 enum class CharacterStatsEnum {
@@ -28,6 +29,7 @@ open class Character(private val name: String, stats: CharacterStats) {
 
     val statistics = Statistics<CharacterStatsEnum>()
     val state = CharacterState.ALIVE
+    val inventory = Inventory(R.integer.INVENTORY_SIZE)
 
     init {
         statistics.set(CharacterStatsEnum.FOOD, stats.food)
