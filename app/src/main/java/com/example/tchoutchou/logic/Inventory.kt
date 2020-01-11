@@ -46,7 +46,7 @@ class Inventory (val size: Int) {
     }
 
     fun getAllBonuses(): Statistics {
-        val stats = Statistics()
+        val stats = Statistics.Builder().build()
 
         slots.forEach {
             stats.food += it.stats.food
