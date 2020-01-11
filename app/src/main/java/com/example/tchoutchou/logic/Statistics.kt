@@ -1,13 +1,26 @@
 package com.example.tchoutchou.logic
 
-class Statistics<T>() {
-    private val stats = HashMap<T, Double>()
-
-    fun set(stat: T, value: Double) {
-        stats[stat] = value
+open class Statistics(var life: Double = 0.0, var strength: Double = 0.0, var food: Double = 0.0, var luck: Double = 0.0, validator: (Statistics) -> Unit = {}) {
+    init {
+        validator(this)
     }
 
-    fun get(stat: T): Double {
-        return stats[stat] ?: -1.0
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other?.javaClass != javaClass) return false
+
+        other as Statistics
+
+        if (life != other.life || strength != other.strength || food != other.food || luck != other.luck) return false
+
+        return true
+    }
+
+    fun isStronger(other: Statistics): Boolean {
+        return strength >= other.strength
+    }
+
+    fun getStrengthDiff(other: Statistics): Double {
+        return strength - other.strength
     }
 }

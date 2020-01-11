@@ -44,4 +44,17 @@ class Inventory (val size: Int) {
             println("\n")
         }
     }
+
+    fun getAllBonuses(): Statistics {
+        val stats = Statistics()
+
+        slots.forEach {
+            stats.food += it.stats.food
+            stats.life += it.stats.life
+            stats.luck += it.stats.luck
+            stats.strength += it.stats.strength
+        }
+
+        return stats
+    }
 }

@@ -68,4 +68,10 @@ class SlotManager<T> (size: Int){
     fun delete(obj: T): Boolean {
         return slots.remove(obj)
     }
+
+    fun forEach(action: (T) -> Unit) {
+        slots.forEach {
+            action(it)
+        }
+    }
 }
