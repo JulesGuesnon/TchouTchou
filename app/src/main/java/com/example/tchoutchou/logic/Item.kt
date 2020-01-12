@@ -12,7 +12,9 @@ enum class ItemTypes {
     CONSUMABLE
 }
 
-open class Item private constructor(override val isNull: Boolean, val type: ItemTypes, val name: String, val description: String, val stats: Statistics): IsNull {
+open class Item private constructor(val type: ItemTypes, val name: String, val description: String, val stats: Statistics): IsNull {
+    override var isNull = false
+
     open fun effect(owner: Character) {
         println("Item effect $name")
     }
@@ -29,7 +31,12 @@ open class Item private constructor(override val isNull: Boolean, val type: Item
                 throw Exception("The item $name is a temporary item but you didn't specified an expiration to the item")
             }
 
-            return Item(isNull, type, name, description, stats)
+            val item = Item(type, name, description, stats)
+            if (type == ItemTypes.PERMANENT && name == "" && description == "") {
+                item.isNull = true
+            }
+
+            return item
         }
     }
 }

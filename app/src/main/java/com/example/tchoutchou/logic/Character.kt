@@ -6,12 +6,20 @@ enum class CharacterState {
     ALIVE,
     DEAD
 }
-open class Character(private val name: String, val stats: Statistics) {
+
+open class Character(val name: String = "", val stats: Statistics = Statistics.Builder().build()): IsNull {
+    override var isNull = false
 
     val inventory = Inventory(5)
     val state = CharacterState.ALIVE
     val money = 0.0
     val modifiers = mutableListOf<Modifier>()
+
+    init {
+        if (name == "") {
+            isNull = true
+        }
+    }
 
     open fun effect() {
         println("$name effect")
