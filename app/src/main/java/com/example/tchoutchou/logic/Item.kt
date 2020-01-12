@@ -13,7 +13,7 @@ enum class ItemTypes {
 }
 
 open class Item private constructor(override val isNull: Boolean, val type: ItemTypes, val name: String, val description: String, val stats: Statistics): IsNull {
-    open fun effect(self: Item) {
+    open fun effect(owner: Character) {
         println("Item effect $name")
     }
 

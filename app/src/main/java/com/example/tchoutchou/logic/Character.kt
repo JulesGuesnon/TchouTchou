@@ -17,12 +17,12 @@ open class Character(private val name: String, val stats: Statistics) {
         println("$name effect")
     }
 
-    fun isStronger(other: Statistics): Boolean {
-        return stats.strength >= other.strength
+    fun isStronger(other: Character): Boolean {
+        return stats.strength >= other.stats.strength
     }
 
-    fun getStrengthDiff(other: Statistics): Double {
-        return stats.strength - other.strength
+    fun getStrengthDiff(other: Character): Double {
+        return stats.strength - other.stats.strength
     }
 
     fun isDead(): Boolean {
