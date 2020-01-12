@@ -1,6 +1,8 @@
 package com.example.tchoutchou.logic
 
-class Train private constructor(val fuel: Int, railcarNumber: Int, val currentStation: Station) {
+import java.lang.Exception
+
+class Train private constructor(val owner: Character, val fuel: Int, railcarNumber: Int, val currentStation: Station) {
     val stationHistory = mutableListOf<Station>()
     val railcars = mutableListOf<Railcar>()
 
@@ -10,11 +12,18 @@ class Train private constructor(val fuel: Int, railcarNumber: Int, val currentSt
         }
     }
 
-    data class Builder(var fuel: Int =  10, var railcarNumber: Int = 1, var currentStation: Station) {
+    data class Builder(var owner: Character,  var fuel: Int =  10, var railcarNumber: Int = 1, var currentStation: Station) {
+        fun owner(owner: Character) = apply { this.owner = owner }
         fun fuel(fuel: Int) = apply { this.fuel = fuel }
         fun railcarNumber(railcarNumber: Int) = apply { this.railcarNumber = railcarNumber }
         fun currentStation(currentStation: Station) = apply { this.currentStation = currentStation }
 
-        fun build() = Train(fuel, railcarNumber, currentStation)
+        fun build(): Train {
+            if (owner == null) {
+                throw Exception("The owner of the train is not defined, please provide one")
+            }
+
+            return Train(owner, fuel, railcarNumber, currentStation)
+        }
     }
 }
