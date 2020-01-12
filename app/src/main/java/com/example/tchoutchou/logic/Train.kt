@@ -5,6 +5,7 @@ import java.lang.Exception
 class Train private constructor(val owner: Character, val fuel: Int, railcarNumber: Int, val currentStation: Station) {
     val stationHistory = mutableListOf<Station>()
     val railcars = mutableListOf<Railcar>()
+    val upgrades = mutableListOf<Upgrade>()
 
     init {
         for (i in 0 until railcarNumber) {
