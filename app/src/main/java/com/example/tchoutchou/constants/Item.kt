@@ -1,6 +1,6 @@
 package com.example.tchoutchou.constants
 
-import com.example.tchoutchou.logic.Statistics
+import com.example.tchoutchou.logic.Character.Statistics
 
 val itemStatsValidator: (Statistics) -> Unit = {
     if (it.luck > 1.0 || it.luck < -1.0) {

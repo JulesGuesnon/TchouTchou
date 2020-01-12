@@ -1,0 +1,77 @@
+package com.example.tchoutchou.logic.Train
+
+import com.example.tchoutchou.logic.Character.Character
+import java.lang.Exception
+
+class Train private constructor(val owner: Character, val fuel: Int, currentStation: Station) {
+    val speed = 1.0
+
+    val stationHistory = mutableListOf<Station>()
+    var currentStation: Station
+        get() = stationHistory[stationHistory.size - 1]
+        set(value: Station) {
+            stationHistory.add(value)
+        }
+
+    val railcars = mutableListOf<Railcar>()
+    val upgrades = HashMap<Upgrades, Upgrade>()
+
+    init {
+        stationHistory.add(currentStation)
+
+        upgrades.set(
+            Upgrades.POWER,
+            Upgrade(
+                Upgrades.POWER,
+                1.0
+            )
+        )
+        upgrades.set(
+            Upgrades.RAILCAR,
+            Upgrade(
+                Upgrades.RAILCAR,
+                1.0
+            )
+        )
+        upgrades.set(
+            Upgrades.RESISTANCE,
+            Upgrade(
+                Upgrades.RESISTANCE,
+                1.0
+            )
+        )
+        upgrades.set(
+            Upgrades.WEAPON,
+            Upgrade(
+                Upgrades.WEAPON,
+                0.0
+            )
+        )
+
+        for (i in 0 until (upgrades[Upgrades.RAILCAR]?.value?.toInt() ?: 1)) {
+            railcars.add(Railcar(5))
+        }
+    }
+
+    data class Builder(var owner: Character, var fuel: Int =  10, var currentStation: Station) {
+        fun owner(owner: Character) = apply { this.owner = owner }
+        fun fuel(fuel: Int) = apply { this.fuel = fuel }
+        fun currentStation(currentStation: Station) = apply { this.currentStation = currentStation }
+
+        fun build(): Train {
+            if (owner == null) {
+                throw Exception("The owner of the train is not defined, please provide one")
+            }
+
+            return Train(
+                owner,
+                fuel,
+                currentStation
+            )
+        }
+    }
+
+    fun upgrade(upgrade: Upgrade) {
+        upgrades[upgrade.type] = upgrade
+    }
+}

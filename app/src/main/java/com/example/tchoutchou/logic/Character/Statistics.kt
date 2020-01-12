@@ -1,4 +1,4 @@
-package com.example.tchoutchou.logic
+package com.example.tchoutchou.logic.Character
 
 
 enum class Stats {
@@ -75,7 +75,14 @@ class Statistics private constructor(val baseLife: Double, val baseStrength: Dou
     }
 
 
-    operator fun plus(stats: Statistics): Statistics = Statistics(life + stats.life, strength + stats.strength, food + stats.food, luck + stats.luck, false, {})
+    operator fun plus(stats: Statistics): Statistics =
+        Statistics(
+            life + stats.life,
+            strength + stats.strength,
+            food + stats.food,
+            luck + stats.luck,
+            false,
+            {})
 
     data class Builder(var life: Double = 0.0, var strength: Double = 0.0, var food: Double = 0.0, var luck: Double = 0.0, var baseLimited: Boolean = true, var validator: (Statistics) -> Unit = {}) {
 
@@ -86,6 +93,13 @@ class Statistics private constructor(val baseLife: Double, val baseStrength: Dou
         fun baseLimited(baseLimited: Boolean) = apply { this.baseLimited = baseLimited }
         fun validator(validator: (Statistics) -> Unit) = apply { this.validator = validator }
 
-        fun build() = Statistics(this.life, this.strength, this.food, this.luck, baseLimited, this.validator)
+        fun build() = Statistics(
+            this.life,
+            this.strength,
+            this.food,
+            this.luck,
+            baseLimited,
+            this.validator
+        )
     }
 }

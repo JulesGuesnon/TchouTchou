@@ -1,12 +1,10 @@
 package com.example.tchoutchou
 
-import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.tchoutchou.logic.Character
-import com.example.tchoutchou.logic.Inventory
+import com.example.tchoutchou.logic.Character.Character
 import com.example.tchoutchou.logic.Item
-import com.example.tchoutchou.logic.Statistics
+import com.example.tchoutchou.logic.Character.Statistics
 
 class MainActivity : AppCompatActivity() {
 

@@ -1,11 +1,13 @@
 package com.example.tchoutchou.logic
 
+import com.example.tchoutchou.logic.Character.Statistics
+
 class Inventory (val size: Int) {
-    private val slots = SlotManager<Item>(size)
+    private val slots = SlotManager<Item?>(size)
 
     init {
         for (i in 0 until size) {
-            slots.push(Item.Builder().isNull(true).build())
+            slots.push(null)
         }
     }
 
@@ -58,6 +60,7 @@ class Inventory (val size: Int) {
         val stats = Statistics.Builder().baseLimited(false).build()
 
         slots.forEach {
+            it as Item
             stats.food += it.stats.food
             stats.life += it.stats.life
             stats.luck += it.stats.luck

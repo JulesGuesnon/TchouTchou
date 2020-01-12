@@ -1,25 +1,17 @@
-package com.example.tchoutchou.logic
+package com.example.tchoutchou.logic.Character
 
-import com.example.tchoutchou.R
+import com.example.tchoutchou.logic.*
 
 enum class CharacterState {
     ALIVE,
     DEAD
 }
 
-open class Character(val name: String = "", val stats: Statistics = Statistics.Builder().build()): IsNull {
-    override var isNull = false
-
+open class Character(val name: String = "", val stats: Statistics = Statistics.Builder().build()) {
     val inventory = Inventory(5)
     val state = CharacterState.ALIVE
     val money = 0.0
     val modifiers = mutableListOf<Modifier>()
-
-    init {
-        if (name == "") {
-            isNull = true
-        }
-    }
 
     open fun effect() {
         println("$name effect")
@@ -49,7 +41,7 @@ open class Character(val name: String = "", val stats: Statistics = Statistics.B
                 Stats.LIFE -> modifiersBonuses.life += modifier.value
                 Stats.FOOD -> modifiersBonuses.food += modifier.value
                 Stats.STRENGTH -> modifiersBonuses.strength += modifier.value
-                Stats.LUCK-> modifiersBonuses.luck += modifier.value
+                Stats.LUCK -> modifiersBonuses.luck += modifier.value
             }
         }
 
