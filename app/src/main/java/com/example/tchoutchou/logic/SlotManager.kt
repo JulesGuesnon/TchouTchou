@@ -1,18 +1,12 @@
 package com.example.tchoutchou.logic
 
-class SlotManager<T> (size: Int){
+class SlotManager<T: IsNull> (size: Int){
     private val slots = mutableListOf<T>()
-
-    init {
-        for (i in 0..size) {
-            slots.add(null as T)
-        }
-    }
 
     fun isEmpty (): Boolean {
         var isEmpty = true
         for (obj in slots) {
-            if (obj != null) {
+            if (!obj.isNull) {
                 isEmpty = false
                 break
             }
@@ -30,7 +24,7 @@ class SlotManager<T> (size: Int){
         var hasFreeSlot = false
 
         for (obj in slots) {
-            if (obj == null) {
+            if (obj.isNull) {
                 hasFreeSlot = true
                 break
             }
@@ -43,7 +37,7 @@ class SlotManager<T> (size: Int){
         var freeSlot = -1
 
         for ((i, obj) in slots.withIndex()) {
-            if (obj == null) {
+            if (obj.isNull) {
                 freeSlot = i
                 break
             }
@@ -65,8 +59,16 @@ class SlotManager<T> (size: Int){
         slots[i] = obj
     }
 
+    fun push(obj: T) {
+        slots.add(obj)
+    }
+
     fun delete(obj: T): Boolean {
         return slots.remove(obj)
+    }
+
+    fun delete(index: Int): Boolean {
+        return slots.removeAt(index) != null
     }
 
     fun forEach(action: (T) -> Unit) {
@@ -74,4 +76,5 @@ class SlotManager<T> (size: Int){
             action(it)
         }
     }
+
 }

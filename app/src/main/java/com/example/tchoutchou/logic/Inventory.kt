@@ -3,6 +3,11 @@ package com.example.tchoutchou.logic
 class Inventory (val size: Int) {
     private val slots = SlotManager<Item>(size)
 
+    init {
+        for (i in 0 until size) {
+            slots.push(Item.Builder().isNull(true).build())
+        }
+    }
 
     fun add(item: Item): Boolean {
         if (slots.hasFreeSlot()) {
@@ -16,6 +21,10 @@ class Inventory (val size: Int) {
 
     fun remove(item: Item): Boolean {
         return slots.delete(item)
+    }
+
+    fun remove(index: Int): Boolean {
+        return slots.delete(index)
     }
 
     fun replace(itemToRemove: Item, itemToAdd: Item): Boolean {
@@ -46,7 +55,7 @@ class Inventory (val size: Int) {
     }
 
     fun getAllBonuses(): Statistics {
-        val stats = Statistics.Builder().build()
+        val stats = Statistics.Builder().baseLimited(false).build()
 
         slots.forEach {
             stats.food += it.stats.food

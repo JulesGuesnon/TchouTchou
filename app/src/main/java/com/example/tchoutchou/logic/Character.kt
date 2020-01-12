@@ -8,9 +8,10 @@ enum class CharacterState {
 }
 open class Character(private val name: String, val stats: Statistics) {
 
-    private val inventory = Inventory(R.integer.INVENTORY_SIZE)
-    private val state = CharacterState.ALIVE
-    private val money = 0.0
+    val inventory = Inventory(5)
+    val state = CharacterState.ALIVE
+    val money = 0.0
+    val modifiers = mutableListOf<Modifier>()
 
     open fun effect() {
         println("$name effect")
@@ -32,9 +33,20 @@ open class Character(private val name: String, val stats: Statistics) {
         return stats.life > 0.0
     }
 
-    fun computeItemsBonuses() {
-        val bonuses = inventory.getAllBonuses()
+    fun computeBonuses() {
+        val modifiersBonuses = Statistics.Builder().baseLimited(false).build()
 
+        for (modifier in modifiers) {
+            when (modifier.type) {
+                Stats.LIFE -> modifiersBonuses.life += modifier.value
+                Stats.FOOD -> modifiersBonuses.food += modifier.value
+                Stats.STRENGTH -> modifiersBonuses.strength += modifier.value
+                Stats.LUCK-> modifiersBonuses.luck += modifier.value
+            }
+        }
 
+        stats.applyBonuses(
+            inventory.getAllBonuses() + modifiersBonuses
+        )
     }
 }
