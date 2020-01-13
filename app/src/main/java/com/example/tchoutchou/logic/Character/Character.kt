@@ -8,7 +8,7 @@ enum class CharacterState {
 open class Character(val name: String = "", val stats: Statistics = Statistics.Builder().build()) {
     val inventory = Inventory(5)
     var state = CharacterState.ALIVE
-    val money = 0.0
+    var money = 0.0
     val modifiers = mutableListOf<Modifier>()
 
     open fun effect() {

@@ -76,9 +76,11 @@ class Train private constructor(val driver: Character, val stats: Statistics, cu
         upgrades[upgrade.type] = upgrade
     }
 
-    fun canAddPassenger(): Boolean {
+    fun canAddPassenger(number: Int = 1): Boolean {
+        var freeCount = 0
         for (railcar in railcars) {
-            if (railcar.slots.hasFreeSlot()) return true
+            if (railcar.slots.hasFreeSlot()) freeCount++
+            if (freeCount == number) return true
         }
 
         return false
