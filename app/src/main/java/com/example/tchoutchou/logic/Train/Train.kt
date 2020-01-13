@@ -3,8 +3,7 @@ package com.example.tchoutchou.logic.Train
 import com.example.tchoutchou.logic.Character.Character
 import java.lang.Exception
 
-class Train private constructor(val owner: Character, val fuel: Int, currentStation: Station) {
-    val speed = 1.0
+class Train private constructor(val driver: Character, val stats: Statistics, currentStation: Station) {
 
     val stationHistory = mutableListOf<Station>()
     var currentStation: Station
@@ -53,19 +52,20 @@ class Train private constructor(val owner: Character, val fuel: Int, currentStat
         }
     }
 
-    data class Builder(var owner: Character, var fuel: Int =  10, var currentStation: Station) {
-        fun owner(owner: Character) = apply { this.owner = owner }
-        fun fuel(fuel: Int) = apply { this.fuel = fuel }
+    data class Builder(var driver: Character, var maxFuel: Int =  10, var stats: Statistics = Statistics.Builder().build(), var currentStation: Station) {
+        fun driver(driver: Character) = apply { this.driver = driver }
+        fun maxFuel(fuel: Int) = apply { this.maxFuel = maxFuel }
+        fun stats(stats: Statistics) = apply { this.stats = stats }
         fun currentStation(currentStation: Station) = apply { this.currentStation = currentStation }
 
         fun build(): Train {
-            if (owner == null) {
+            if (driver == null) {
                 throw Exception("The owner of the train is not defined, please provide one")
             }
 
             return Train(
-                owner,
-                fuel,
+                driver,
+                stats,
                 currentStation
             )
         }
