@@ -1,5 +1,6 @@
 package com.example.tchoutchou.logic.Events
 
+import com.example.tchoutchou.logic.Game
 import com.example.tchoutchou.logic.Story.StoryNode
 import com.example.tchoutchou.logic.Train.Train
 
@@ -12,27 +13,27 @@ class Event<T: Events>: Events {
         events.add(obj)
     }
 
-    override fun beforeEvent(event: StoryNode, train: Train) {
+    override fun beforeEvent(game: Game) {
         for (gameEvent in events) {
-            gameEvent.beforeEvent(event, train)
+            gameEvent.beforeEvent(game)
         }
     }
 
-    override fun beforeChoice(event: StoryNode, train: Train) {
+    override fun beforeChoice(game: Game) {
         for (gameEvent in events) {
-            gameEvent.beforeChoice(event, train)
+            gameEvent.beforeChoice(game)
         }
     }
 
-    override fun afterChoice(event: StoryNode, train: Train) {
+    override fun afterChoice(game: Game) {
         for (gameEvent in events) {
-            gameEvent.afterChoice(event, train)
+            gameEvent.afterChoice(game)
         }
     }
 
-    override fun afterEvent(event: StoryNode, train: Train) {
+    override fun afterEvent(game: Game) {
         for (gameEvent in events) {
-            gameEvent.afterEvent(event, train)
+            gameEvent.afterEvent(game)
         }
     }
 

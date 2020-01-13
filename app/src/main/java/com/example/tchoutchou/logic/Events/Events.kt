@@ -1,14 +1,13 @@
 package com.example.tchoutchou.logic.Events
 
-import com.example.tchoutchou.logic.Story.StoryNode
-import com.example.tchoutchou.logic.Train.Train
+import com.example.tchoutchou.logic.Game
 
 interface Events {
-    fun beforeEvent(event: StoryNode, train: Train)
+    fun beforeEvent(game: Game)
 
-    fun beforeChoice(event: StoryNode, train: Train)
+    fun beforeChoice(game: Game)
 
-    fun afterChoice(event: StoryNode, train: Train)
+    fun afterChoice(game: Game)
 
-    fun afterEvent(event: StoryNode, train: Train)
+    fun afterEvent(game: Game)
 }
