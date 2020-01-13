@@ -7,7 +7,7 @@ enum class CharacterState {
 
 open class Character(val name: String = "", val stats: Statistics = Statistics.Builder().build()) {
     val inventory = Inventory(5)
-    val state = CharacterState.ALIVE
+    var state = CharacterState.ALIVE
     val money = 0.0
     val modifiers = mutableListOf<Modifier>()
 
@@ -45,6 +45,21 @@ open class Character(val name: String = "", val stats: Statistics = Statistics.B
 
         stats.applyBonuses(
             inventory.getAllBonuses() + modifiersBonuses
+        )
+    }
+
+    fun addModifier(modifier: Modifier) {
+        modifiers.add(modifier)
+        computeBonuses()
+    }
+
+    fun setDead() {
+        addModifier(
+            Modifier(
+                Stats.LIFE,
+                stats.life,
+                -1
+            )
         )
     }
 }

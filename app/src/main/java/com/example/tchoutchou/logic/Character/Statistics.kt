@@ -84,7 +84,7 @@ class Statistics private constructor(val baseLife: Double, val baseStrength: Dou
             false,
             {})
 
-    data class Builder(var life: Double = 0.0, var strength: Double = 0.0, var food: Double = 0.0, var luck: Double = 0.0, var baseLimited: Boolean = true, var validator: (Statistics) -> Unit = {}) {
+    data class Builder(var life: Double = 10.0, var strength: Double = 1.0, var food: Double = 10.0, var luck: Double = 0.5, var baseLimited: Boolean = true, var validator: (Statistics) -> Unit = {}) {
 
         fun life(life: Double) = apply { this.life = life }
         fun strength(strength: Double) = apply { this.strength= strength }
