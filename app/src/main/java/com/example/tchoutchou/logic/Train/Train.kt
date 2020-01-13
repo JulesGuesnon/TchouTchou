@@ -1,6 +1,7 @@
 package com.example.tchoutchou.logic.Train
 
 import com.example.tchoutchou.logic.Character.Character
+import com.example.tchoutchou.logic.Character.Modifier
 import java.lang.Exception
 
 class Train private constructor(val driver: Character, val stats: Statistics, currentStation: Station) {
@@ -73,5 +74,24 @@ class Train private constructor(val driver: Character, val stats: Statistics, cu
 
     fun upgrade(upgrade: Upgrade) {
         upgrades[upgrade.type] = upgrade
+    }
+
+    fun canAddPassenger(): Boolean {
+        for (railcar in railcars) {
+            if (railcar.slots.hasFreeSlot()) return true
+        }
+
+        return false
+    }
+
+    fun addPassenger(passenger: Character): Boolean {
+        for (railcar in railcars) {
+            if (railcar.canAddPassenger()) {
+                railcar.addPassenger(passenger)
+                return true
+            }
+        }
+
+        return false
     }
 }

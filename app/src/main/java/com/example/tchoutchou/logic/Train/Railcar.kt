@@ -11,7 +11,15 @@ class Railcar(val capacity: Int) {
 
     init {
         for (i in 0 until capacity) {
-            slots.push(Character())
+            slots.push(null)
         }
+    }
+
+    fun canAddPassenger(): Boolean {
+        return slots.hasFreeSlot()
+    }
+
+    fun addPassenger(passenger: Character) {
+        slots.push(passenger)
     }
 }
