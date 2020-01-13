@@ -1,7 +1,6 @@
-package com.example.tchoutchou.logic.Train
+package com.example.tchoutchou.logic.train
 
-import com.example.tchoutchou.logic.Character.Character
-import com.example.tchoutchou.logic.Character.Modifier
+import com.example.tchoutchou.logic.character.Character
 import java.lang.Exception
 
 class Train private constructor(val driver: Character, val stats: Statistics, currentStation: Station) {

@@ -1,9 +1,6 @@
-package com.example.tchoutchou.logic.Events
+package com.example.tchoutchou.logic.events
 
 import com.example.tchoutchou.logic.Game
-import com.example.tchoutchou.logic.Story.StoryNode
-import com.example.tchoutchou.logic.Train.Train
-
 
 
 class Event<T: Events>: Events {

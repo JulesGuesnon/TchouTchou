@@ -1,4 +1,4 @@
-package com.example.tchoutchou.logic.Story
+package com.example.tchoutchou.logic.story
 
 import com.example.tchoutchou.logic.Game
 

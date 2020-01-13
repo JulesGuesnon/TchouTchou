@@ -1,4 +1,4 @@
-package com.example.tchoutchou.logic.Train
+package com.example.tchoutchou.logic.train
 
 
 enum class Stats {

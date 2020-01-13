@@ -1,7 +1,7 @@
-package com.example.tchoutchou.logic.Story
+package com.example.tchoutchou.logic.story
 
-import com.example.tchoutchou.logic.Events.Event
-import com.example.tchoutchou.logic.Train.Train
+import com.example.tchoutchou.logic.events.Event
+import com.example.tchoutchou.logic.train.Train
 
 class SideQuest (val startedAt: Int, val expiresAt: Int):
     Event {

@@ -1,6 +1,6 @@
 package com.example.tchoutchou.constants
 
-import com.example.tchoutchou.logic.Character.Statistics
+import com.example.tchoutchou.logic.character.Statistics
 import java.lang.Exception
 
 val characterStatsValidator: (Statistics) -> Unit = {

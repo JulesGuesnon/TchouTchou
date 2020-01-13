@@ -1,4 +1,4 @@
-package com.example.tchoutchou.logic.Character
+package com.example.tchoutchou.logic.character
 
 import com.example.tchoutchou.logic.SlotManager
 

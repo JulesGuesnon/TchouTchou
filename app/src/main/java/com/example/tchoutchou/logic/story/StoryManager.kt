@@ -1,4 +1,4 @@
-package com.example.tchoutchou.logic.Story
+package com.example.tchoutchou.logic.story
 
 class StoryManager () {
     val history = mutableListOf<StoryNode>()

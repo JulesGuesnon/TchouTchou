@@ -2,9 +2,9 @@ package com.example.tchoutchou
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.tchoutchou.logic.Character.Character
-import com.example.tchoutchou.logic.Character.Item
-import com.example.tchoutchou.logic.Character.Statistics
+import com.example.tchoutchou.logic.character.Character
+import com.example.tchoutchou.logic.character.Item
+import com.example.tchoutchou.logic.character.Statistics
 
 class MainActivity : AppCompatActivity() {
 

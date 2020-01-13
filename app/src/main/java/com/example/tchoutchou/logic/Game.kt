@@ -1,7 +1,7 @@
 package com.example.tchoutchou.logic
 
-import com.example.tchoutchou.logic.Story.StoryManager
-import com.example.tchoutchou.logic.Train.Train
+import com.example.tchoutchou.logic.story.StoryManager
+import com.example.tchoutchou.logic.train.Train
 
 class Game(val train: Train) {
 

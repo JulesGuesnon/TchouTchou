@@ -1,11 +1,11 @@
-package com.example.tchoutchou.Story
+package com.example.tchoutchou.story
 
-import com.example.tchoutchou.logic.Character.Modifier
-import com.example.tchoutchou.logic.Character.Stats
-import com.example.tchoutchou.logic.Story.Choice
-import com.example.tchoutchou.logic.Story.StoryNode
-import com.example.tchoutchou.logic.Train.Upgrade
-import com.example.tchoutchou.logic.Train.Upgrades
+import com.example.tchoutchou.logic.character.Modifier
+import com.example.tchoutchou.logic.character.Stats
+import com.example.tchoutchou.logic.story.Choice
+import com.example.tchoutchou.logic.story.StoryNode
+import com.example.tchoutchou.logic.train.Upgrade
+import com.example.tchoutchou.logic.train.Upgrades
 
 val yellowStory = arrayOf(
     StoryNode(
