@@ -1,3 +1,4 @@
 package com.example.tchoutchou.logic.Story
 
-class StoryNode (val from: Int, val choices: Array<Choice>)
+typealias StoryNodeId = String
+class StoryNode (val id: StoryNodeId, val sentence: String, val choices: Array<Choice>)
