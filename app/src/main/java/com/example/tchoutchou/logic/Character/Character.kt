@@ -1,7 +1,5 @@
 package com.example.tchoutchou.logic.Character
 
-import com.example.tchoutchou.logic.*
-
 enum class CharacterState {
     ALIVE,
     DEAD

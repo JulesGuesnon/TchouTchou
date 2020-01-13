@@ -1,7 +1,5 @@
-package com.example.tchoutchou.logic
+package com.example.tchoutchou.logic.Character
 
-import com.example.tchoutchou.logic.Character.Character
-import com.example.tchoutchou.logic.Character.Statistics
 import java.lang.Exception
 
 interface IsNull {
@@ -29,7 +27,12 @@ open class Item private constructor(val type: ItemTypes, val name: String, val d
             if (type == ItemTypes.TEMPORARY && expiresAt <= 0) {
                 throw Exception("The item $name is a temporary item but you didn't specified an expiration to the item")
             }
-            return Item(type, name, description, stats)
+            return Item(
+                type,
+                name,
+                description,
+                stats
+            )
         }
     }
 }

@@ -1,9 +1,12 @@
-package com.example.tchoutchou.logic
+package com.example.tchoutchou.logic.Character
 
-import com.example.tchoutchou.logic.Character.Statistics
+import com.example.tchoutchou.logic.SlotManager
 
 class Inventory (val size: Int) {
-    private val slots = SlotManager<Item?>(size)
+    private val slots =
+        SlotManager<Item?>(
+            size
+        )
 
     init {
         for (i in 0 until size) {
