@@ -2,39 +2,39 @@ package com.example.tchoutchou
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.tchoutchou.logic.Game
 import com.example.tchoutchou.logic.character.Character
 import com.example.tchoutchou.logic.character.Item
 import com.example.tchoutchou.logic.character.Statistics
+import com.example.tchoutchou.logic.story.StoryManager
+import com.example.tchoutchou.logic.story.StoryUiElements
+import com.example.tchoutchou.logic.train.Station
+import com.example.tchoutchou.logic.train.Train
+import com.example.tchoutchou.story.greenStory
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var game : Game
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val character = Character(
-            "Billy",
-            Statistics.Builder().food(10.0).life(10.0).luck(10.0).strength(10.0).build()
+        game = Game(
+            Train.Builder().driver(Character("Billy")).currentStation(Station("Montparnasse")).build()
         )
 
-        character.stats.print()
-        character.inventory.add(
-            Item(
-                false,
-                "Lamp",
-                "Nice in the dark",
-                Statistics.Builder().strength(10.0).build()
-            )
+        game.storyManager.setUiElements(
+            StoryUiElements(sentence, choice1, choice2)
         )
 
-        character.computeItemsBonuses()
+        game.init()
 
-        character.stats.print()
-
-        character.inventory.remove(0)
-
-        character.computeItemsBonuses()
-
-        character.stats.print()
+        GlobalScope.async {
+            game.run()
+        }
     }
 }

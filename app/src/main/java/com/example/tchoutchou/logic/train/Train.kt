@@ -52,7 +52,7 @@ class Train private constructor(val driver: Character, val stats: Statistics, cu
         }
     }
 
-    data class Builder(var driver: Character, var maxFuel: Int =  10, var stats: Statistics = Statistics.Builder().build(), var currentStation: Station) {
+    data class Builder(var driver: Character = Character(), var maxFuel: Int =  10, var stats: Statistics = Statistics.Builder().build(), var currentStation: Station = Station("")) {
         fun driver(driver: Character) = apply { this.driver = driver }
         fun maxFuel(fuel: Int) = apply { this.maxFuel = maxFuel }
         fun stats(stats: Statistics) = apply { this.stats = stats }
