@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">tchoutchou</string>
+    <string name="app_name">Tchoutchou</string>
+    <string name="new_game">Start new game</string>
+    <string name="options">Options</string>
+    <string name="quit_game">Quit game</string>
 </resources>
