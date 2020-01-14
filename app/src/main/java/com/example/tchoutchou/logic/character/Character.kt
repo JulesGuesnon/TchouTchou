@@ -1,15 +1,24 @@
 package com.example.tchoutchou.logic.character
 
+import com.example.tchoutchou.logic.Game
+import com.example.tchoutchou.logic.events.EventType
+import com.example.tchoutchou.logic.events.Events
+
 enum class CharacterState {
     ALIVE,
     DEAD
 }
 
-open class Character(val name: String = "", val stats: Statistics = Statistics.Builder().build()) {
+open class Character(val name: String = "", val stats: Statistics = Statistics.Builder().build()): Events(null) {
+
     val inventory = Inventory(5)
     var state = CharacterState.ALIVE
     var money = 0.0
     val modifiers = mutableListOf<Modifier>()
+
+    init {
+        this.registerEvent(EventType.BEFORECHOICE)
+    }
 
     open fun effect() {
         println("$name effect")
@@ -61,5 +70,9 @@ open class Character(val name: String = "", val stats: Statistics = Statistics.B
                 -1
             )
         )
+    }
+
+    override fun beforeChoice(game: Game) {
+        println("BEFORE CHOICE OF ")
     }
 }

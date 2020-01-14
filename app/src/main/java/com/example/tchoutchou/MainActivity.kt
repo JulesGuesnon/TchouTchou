@@ -23,9 +23,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        game = Game(
-            Train.Builder().driver(Character("Billy")).currentStation(Station("Montparnasse")).build()
-        )
+        game = Game()
 
         game.storyManager.setUiElements(
             StoryUiElements(sentence, choice1, choice2)
