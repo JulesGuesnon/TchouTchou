@@ -18,8 +18,7 @@ val greenStory = arrayOf(
     ),
     StoryNode(
         "G2",
-        "Vous avez pris la route et vous arrivez à la première station, le voyage s’est bien passé.\n" +
-                "Vous vous reposez avant de reprendre la route et au loin vous entendez une voix... ",
+        "Vous avez pris la route et vous arrivez à la première station, le voyage s’est bien passé. Vous vous reposez avant de reprendre la route et au loin vous entendez une voix... ",
         arrayOf(
             Choice("Je vais aller voir", "G3"),
             Choice("Je mets l’accélérateur à fond et je fonce dans l’tas", "R1")

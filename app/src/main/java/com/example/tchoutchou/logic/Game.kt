@@ -41,15 +41,22 @@ class Game(context: Context) {
 
     suspend fun run() {
         musicManager.load(R.raw.mission_sound, true)
-        storyManager.modalManager.show()
 
         mainLoop@ while (train.driver.isAlive()) {
             eventManager.emit(EventType.BEFOREEVENT)
             step++
             println("Waiting for choice")
+            storyManager.modalManager.say("Titre sérieux", "blague de yoan", 2000)
+
+            delay(100)
+
+            storyManager.modalManager.show()
+
             eventManager.emit(EventType.BEFORECHOICE)
+
             val choice = storyManager.waitForChoice()
 
+            storyManager.modalManager.hide()
             println("Got choice: " + choice.choice)
             choice.callback(this)
 

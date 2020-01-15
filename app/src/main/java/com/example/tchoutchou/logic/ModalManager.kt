@@ -1,6 +1,8 @@
 package com.example.tchoutchou.logic
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +19,7 @@ import kotlinx.coroutines.delay
 class ModalManager (val choiceChannel: Channel<Choice>) {
     private lateinit var elements: ModalElements
     lateinit var choiceItemAdapter: ItemAdapter<ChoiceItem>
+    val mainHandler = Handler(Looper.getMainLooper())
 
     fun hide() {
         elements.modal.post {
@@ -30,24 +33,45 @@ class ModalManager (val choiceChannel: Channel<Choice>) {
         }
     }
 
-    suspend fun say(text: String, delayTime: Long) {
-        elements.modalSentence.post {
-            elements.modalSentence.text = text
+    suspend fun say(title: String, subtitle: String, delayTime: Long) {
+        elements.modal.post {
+            elements.modalSentence.visibility = View.GONE
+            elements.choiceRecycler.visibility = View.GONE
         }
+
+        elements.modalTitle.post {
+            elements.modalTitle.text = "* " + title + " * "
+            elements.modalSubtitle.text = subtitle
+            elements.modalTitle.visibility = View.VISIBLE
+            elements.modalSubtitle.visibility = View.VISIBLE
+        }
+
+        delay(100)
         show()
         delay(delayTime)
         hide()
+        elements.modalTitle.post {
+            elements.modalTitle.text = null
+            elements.modalSubtitle.text = null
+            elements.modalTitle.visibility = View.GONE
+            elements.modalSubtitle.visibility = View.GONE
+            elements.modalSentence.visibility = View.VISIBLE
+            elements.choiceRecycler.visibility = View.VISIBLE
+        }
     }
 
     fun setModalElements(context: Context, elements: ModalElements) {
         this.elements = elements
         val layout = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        choiceItemAdapter= ItemAdapter<ChoiceItem>()
+        choiceItemAdapter= ItemAdapter()
         val fastAdapter = FastAdapter.with(choiceItemAdapter)
 
         fastAdapter.onClickListener = { _, _, item, _ ->
             GlobalScope.async {
                 choiceChannel.send(item.choice)
+                mainHandler.post {
+                    choiceItemAdapter.clear()
+                }
             }
             false
         }
@@ -64,11 +88,10 @@ class ModalManager (val choiceChannel: Channel<Choice>) {
     }
 
     fun setChoices(choices: Array<Choice>) {
-        println("> ModalManager: Before clear")
-        choiceItemAdapter.clear()
-        println("> ModalManager: After clean")
-        println("> ModalManager: Before add")
-        choiceItemAdapter.add(choices.map { ChoiceItem(it) })
-        println("> ModalManager: After add")
+        mainHandler.post {
+            println("> ModalManager: Before add")
+            choiceItemAdapter.add(choices.map { ChoiceItem(it) })
+            println("> ModalManager: After add")
+        }
     }
 }

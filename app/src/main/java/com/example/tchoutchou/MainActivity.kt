@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         game = Game(this)
 
         game.mainMenuElements = MainMenuElements(main_title, start_game, options, quit_game)
-        game.storyManager.modalManager.setModalElements(this, ModalElements(modal, modal_sentence, choice_recycler))
+        game.storyManager.modalManager.setModalElements(this, ModalElements(modal, modal_sentence, choice_recycler, modal_title, modal_subtitle))
 
         game.init()
 
