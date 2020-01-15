@@ -13,6 +13,8 @@ val trainRatio = trainWidth / trainHeight
 
 val fireplace = Point(90, 68)
 val fireplaceWidth = 13.0
+val fireplaceWidthRatio = fireplace.x.toDouble() / trainWidth
+val fireplaceHeightRatio = fireplace.y.toDouble() / trainHeight
 
 val smokeWidth = 32
 val smokeHeight = smokeWidth

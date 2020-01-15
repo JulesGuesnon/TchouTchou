@@ -1,5 +1,6 @@
 package com.example.tchoutchou.logic.train
 
+import android.animation.ValueAnimator
 import android.view.Display
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
@@ -126,10 +127,12 @@ class Train private constructor(val driver: Character, val stats: Statistics, cu
             - ((backgroundHeightRatio + 1) * trackHeight).toFloat()
         ).translationX(- trainElements.train.layoutParams.width.toFloat())
 
-        val windowTrainWidthRatio = trainElements.train.layoutParams.width / Size.getWidthFromDisplay(display)
+        val windowTrainWidthRatio = trainElements.train.layoutParams.width.toDouble() / Size.getWidthFromDisplay(display).toDouble()
 
-        trainElements.smoke.layoutParams.width = (fireplaceWidth * (1 + windowTrainWidthRatio).toDouble()).toInt()
 
+        trainElements.smoke.layoutParams.width = (fireplaceWidth * (1 + windowTrainWidthRatio)).toInt() * 10
+        trainElements.smoke.layoutParams.height = trainElements.smoke.layoutParams.width
+        setSmokePosition()
 
     }
 
@@ -151,6 +154,9 @@ class Train private constructor(val driver: Character, val stats: Statistics, cu
                 .setDuration(animationTime)
                 .setInterpolator(AccelerateInterpolator())
                 .translationX(Size.getWidthFromDisplay(display).toFloat() + trainElements.train.layoutParams.width.toFloat())
+                .setUpdateListener {
+                    setSmokePosition()
+                }
 
         }
 
@@ -167,9 +173,28 @@ class Train private constructor(val driver: Character, val stats: Statistics, cu
                     .setDuration(animationTime)
                     .setInterpolator(DecelerateInterpolator())
                     .translationX(100f)
+                    .setUpdateListener {
+                        setSmokePosition()
+                    }
             }
 
             if (blocking) delay(animationTime)
+    }
+
+    fun setSmokePosition() {
+        trainElements.smoke.post {
+            trainElements
+                .smoke
+                .animate()
+                .setDuration(0)
+                .translationX(
+                    (trainElements.train.translationX + fireplaceWidthRatio * trainElements.train.layoutParams.width - trainElements.smoke.layoutParams.width / 3.4).toFloat()
+                )
+                .translationY((- trainElements.train.translationY - trainElements.train.layoutParams.height + trainElements.train.layoutParams.height * (1 - fireplaceHeightRatio)).toFloat())
+                .setUpdateListener {
+                    setSmokePosition()
+                }
+        }
     }
 
     suspend fun animateFromOutsideLeftToOutsideRight() {
@@ -183,6 +208,9 @@ class Train private constructor(val driver: Character, val stats: Statistics, cu
                 .translationX(
                     Size.getWidthFromDisplay(display).toFloat() + trainElements.train.layoutParams.width.toFloat()
                 )
+                .setUpdateListener {
+                    setSmokePosition()
+                }
         }
 
         delay(animationTime)
