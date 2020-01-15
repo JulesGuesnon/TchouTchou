@@ -1,5 +1,6 @@
 package com.example.tchoutchou.logic.story
 
+import com.example.tchoutchou.logic.ModalManager
 import com.example.tchoutchou.story.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -11,6 +12,8 @@ class StoryManager {
 
     private val history = mutableListOf<StoryNode>()
     private val choiceChannel = Channel<Choice>(1)
+    val modalManager = ModalManager(choiceChannel)
+
     var currentNode
         get() = history[history.size - 1]
         set(value) {
@@ -18,49 +21,22 @@ class StoryManager {
         }
 
     val sideQuests = mutableListOf<SideQuest>()
-    lateinit var renderElements: StoryUiElements
 
-    fun setUiElements(uiElements: StoryUiElements) {
-        this.renderElements = uiElements
-    }
-
-    fun bindEvents() {
-        renderElements.firstChoice.setOnClickListener {
-            GlobalScope.async {
-                choiceChannel.send(currentNode.choices[0])
-            }
-        }
-
-        renderElements.secondChoice.setOnClickListener {
-            GlobalScope.async {
-                choiceChannel.send(currentNode.choices[1])
-            }
-        }
-    }
 
     fun goTo(questId: StoryNodeId): Boolean {
-        println("#1")
+        println("> Before death verification")
         if (questId == "death") {
             println("DEAD")
             return false
         }
-        println("#2")
+
+        println("> Before setting currentNode")
         currentNode = parseQuestId(questId)
-        println("#3")
-        renderElements.sentenceText.post {
-            renderElements.sentenceText.text = currentNode.sentence
-        }
 
-        renderElements.firstChoice.post {
-            renderElements.firstChoice.text = currentNode.choices[0].choice
-        }
-
-        renderElements.secondChoice.post {
-            renderElements.secondChoice.text = currentNode.choices[1].choice
-        }
-        println("#4")
-        bindEvents()
-        println("#5")
+        println("> Before setting sentence")
+        modalManager.setSentence(currentNode.sentence)
+        println("> Before setting choices")
+        modalManager.setChoices(currentNode.choices)
         return true
     }
 
