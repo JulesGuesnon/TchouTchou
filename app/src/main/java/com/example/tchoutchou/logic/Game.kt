@@ -6,19 +6,22 @@ import com.example.tchoutchou.R
 import com.example.tchoutchou.logic.character.Character
 import com.example.tchoutchou.logic.events.EventManager
 import com.example.tchoutchou.logic.events.EventType
+import com.example.tchoutchou.logic.managers.BackgroundManager
+import com.example.tchoutchou.logic.managers.MusicManager
 import com.example.tchoutchou.logic.story.StoryManager
 import com.example.tchoutchou.logic.train.Station
 import com.example.tchoutchou.logic.train.Train
-import com.example.tchoutchou.story.greenStory
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 
 class Game(context: Context) {
 
     val storyManager = StoryManager()
     val eventManager = EventManager(this)
-    val musicManager = MusicManager(context, R.raw.home_sound)
+    val musicManager = MusicManager(
+        context,
+        R.raw.home_sound
+    )
+    val backgroundManager = BackgroundManager()
 
     lateinit var mainMenuElements: MainMenuElements
     lateinit var train: Train

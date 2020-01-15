@@ -1,7 +1,7 @@
 package com.example.tchoutchou.logic.train
 
 import com.example.tchoutchou.logic.character.Character
-import com.example.tchoutchou.logic.SlotManager
+import com.example.tchoutchou.logic.managers.SlotManager
 
 class Railcar(val capacity: Int) {
     val slots =

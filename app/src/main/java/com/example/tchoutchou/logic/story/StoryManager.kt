@@ -1,9 +1,7 @@
 package com.example.tchoutchou.logic.story
 
-import com.example.tchoutchou.logic.ModalManager
+import com.example.tchoutchou.logic.managers.ModalManager
 import com.example.tchoutchou.story.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import java.lang.Exception
@@ -12,7 +10,8 @@ class StoryManager {
 
     private val history = mutableListOf<StoryNode>()
     private val choiceChannel = Channel<Choice>(1)
-    val modalManager = ModalManager(choiceChannel)
+    val modalManager =
+        ModalManager(choiceChannel)
 
     var currentNode
         get() = history[history.size - 1]

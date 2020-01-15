@@ -1,6 +1,6 @@
 package com.example.tchoutchou.logic.character
 
-import com.example.tchoutchou.logic.SlotManager
+import com.example.tchoutchou.logic.managers.SlotManager
 
 class Inventory (val size: Int) {
     private val slots =

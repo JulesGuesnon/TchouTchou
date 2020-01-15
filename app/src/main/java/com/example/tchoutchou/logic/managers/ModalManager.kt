@@ -1,4 +1,4 @@
-package com.example.tchoutchou.logic
+package com.example.tchoutchou.logic.managers
 
 import android.content.Context
 import android.os.Handler
@@ -7,6 +7,7 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tchoutchou.ChoiceItem
+import com.example.tchoutchou.logic.ModalElements
 import com.example.tchoutchou.logic.story.Choice
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter

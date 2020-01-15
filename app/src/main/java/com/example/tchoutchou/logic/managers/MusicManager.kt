@@ -1,4 +1,4 @@
-package com.example.tchoutchou.logic
+package com.example.tchoutchou.logic.managers
 
 import android.content.Context
 import android.media.MediaPlayer

@@ -1,6 +1,18 @@
 package com.example.tchoutchou.logic.train
 
+import android.view.Display
+import android.view.ViewGroup
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.DecelerateInterpolator
+import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.marginBottom
+import com.example.tchoutchou.constants.*
 import com.example.tchoutchou.logic.character.Character
+import com.example.tchoutchou.utils.Size
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import java.lang.Exception
 
 class Train private constructor(val driver: Character, val stats: Statistics, currentStation: Station) {
@@ -14,6 +26,8 @@ class Train private constructor(val driver: Character, val stats: Statistics, cu
 
     val railcars = mutableListOf<Railcar>()
     val upgrades = HashMap<Upgrades, Upgrade>()
+    lateinit var trainElements: TrainElements
+    lateinit var display: Display
 
     init {
         stationHistory.add(currentStation)
@@ -94,5 +108,83 @@ class Train private constructor(val driver: Character, val stats: Statistics, cu
         }
 
         return false
+    }
+
+    fun setElements(display: Display, trainElements: TrainElements) {
+        this.display = display
+        this.trainElements = trainElements
+
+        val windowHeight =  Size.getHeightFromDisplay(display).toDouble()
+        val backgroundHeightRatio = backgroundHeight / windowHeight
+
+
+        trainElements.train.layoutParams.height = (windowHeight * 0.5).toInt()
+        trainElements.train.layoutParams.width = (trainElements.train.layoutParams.height.toDouble() * trainRatio).toInt()
+
+        trainElements.train.animate().duration = 0
+        trainElements.train.animate().translationY(
+            - ((backgroundHeightRatio + 1) * trackHeight).toFloat()
+        ).translationX(- trainElements.train.layoutParams.width.toFloat())
+
+        val windowTrainWidthRatio = trainElements.train.layoutParams.width / Size.getWidthFromDisplay(display)
+
+        trainElements.smoke.layoutParams.width = (fireplaceWidth * (1 + windowTrainWidthRatio).toDouble()).toInt()
+
+
+    }
+
+    fun setTrainOutLeft() {
+        trainElements.train.post {
+            trainElements.train.animate().duration = 0
+            trainElements.train.animate().translationX(
+                - trainElements.train.width.toFloat()
+            )
+        }
+    }
+
+    suspend fun animateFromPositionToOutsideRight() {
+        val animationTime = 1750L
+        trainElements.train.post {
+            trainElements
+                .train
+                .animate()
+                .setDuration(animationTime)
+                .setInterpolator(AccelerateInterpolator())
+                .translationX(Size.getWidthFromDisplay(display).toFloat() + trainElements.train.layoutParams.width.toFloat())
+
+        }
+
+        delay(animationTime)
+    }
+
+    suspend fun animateFromOutsideToLeft(blocking: Boolean = true) {
+            setTrainOutLeft()
+            val animationTime = 1000L
+            trainElements.train.post {
+                trainElements
+                    .train
+                    .animate()
+                    .setDuration(animationTime)
+                    .setInterpolator(DecelerateInterpolator())
+                    .translationX(100f)
+            }
+
+            if (blocking) delay(animationTime)
+    }
+
+    suspend fun animateFromOutsideLeftToOutsideRight() {
+        val animationTime = 1000L
+        setTrainOutLeft()
+        trainElements.train.post {
+            trainElements
+                .train
+                .animate()
+                .setDuration(animationTime)
+                .translationX(
+                    Size.getWidthFromDisplay(display).toFloat() + trainElements.train.layoutParams.width.toFloat()
+                )
+        }
+
+        delay(animationTime)
     }
 }

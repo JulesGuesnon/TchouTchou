@@ -1,4 +1,4 @@
-package com.example.tchoutchou.logic
+package com.example.tchoutchou.logic.managers
 
 class SlotManager<T> (size: Int){
     private val slots = mutableListOf<T>()
