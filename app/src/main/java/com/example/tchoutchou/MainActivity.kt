@@ -1,62 +1,72 @@
 package com.example.tchoutchou
 
-import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PowerManager
 import android.view.View
+import com.example.tchoutchou.constants.backgroundRatio
 import com.example.tchoutchou.logic.Game
-import com.example.tchoutchou.logic.character.Character
-import com.example.tchoutchou.logic.character.Item
-import com.example.tchoutchou.logic.character.Statistics
-import com.example.tchoutchou.logic.story.StoryManager
-import com.example.tchoutchou.logic.story.StoryUiElements
-import com.example.tchoutchou.logic.train.Station
-import com.example.tchoutchou.logic.train.Train
-import com.example.tchoutchou.story.greenStory
+import com.example.tchoutchou.logic.MainMenuElements
+import com.example.tchoutchou.logic.ModalElements
+import com.example.tchoutchou.utils.Size
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
 
 class MainActivity : AppCompatActivity() {
 
-    //lateinit var game : Game
-
-    lateinit var mp: MediaPlayer
+    lateinit var game : Game
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setBackgroundSize()
 
-        mp = MediaPlayer.create(this, R.raw.home_sound)
-        mp.setOnPreparedListener {
-            it.start()
-            it.isLooping = true
-            println("azehbquhfbsqiufb")
-        }
+        game = Game(this)
+
+        game.mainMenuElements = MainMenuElements(main_title, start_game, options, quit_game)
+        game.storyManager.modalManager.setModalElements(this, ModalElements(modal, modal_sentence, choice_recycler))
+
+        game.init()
+
+        setHomeEvents()
     }
 
     override fun onPause() {
         super.onPause()
-        mp.pause()
+        game.musicManager.pause()
     }
 
     override fun onResume() {
         super.onResume()
-        mp.start()
+        game.musicManager.play()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mp.stop()
-        mp.release()
+        game.musicManager.free()
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         if (hasFocus) hideSystemUI()
+    }
+
+    fun setHomeEvents() {
+        start_game.setOnClickListener {
+            game.hideMainMenu()
+            GlobalScope.async {
+                game.run()
+            }
+        }
+
+        options.setOnClickListener {
+            println("options")
+        }
+
+        quit_game.setOnClickListener {
+            System.exit(0)
+        }
     }
 
     private fun hideSystemUI() {
@@ -71,4 +81,10 @@ class MainActivity : AppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_FULLSCREEN)
     }
 
+    fun setBackgroundSize() {
+        val windowHeight = Size.getHeightFromDisplay(windowManager.defaultDisplay)
+
+        game_background.layoutParams.height = windowHeight
+        game_background.layoutParams.width = windowHeight * backgroundRatio.toInt()
+    }
 }
