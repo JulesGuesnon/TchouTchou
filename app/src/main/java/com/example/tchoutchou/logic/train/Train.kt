@@ -136,13 +136,14 @@ class Train private constructor(val driver: Character, val stats: Statistics, cu
 
     }
 
-    fun setTrainOutLeft() {
+    suspend fun setTrainOutLeft() {
         trainElements.train.post {
-            trainElements.train.animate().duration = 0
-            trainElements.train.animate().translationX(
-                - trainElements.train.width.toFloat()
-            )
+            trainElements.train.animate()
+                .setDuration(0)
+                .translationX(- trainElements.train.width.toFloat())
         }
+
+        delay(100)
     }
 
     suspend fun animateFromPositionToOutsideRight() {

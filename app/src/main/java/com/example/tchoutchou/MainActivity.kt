@@ -5,13 +5,15 @@ import android.os.Bundle
 import android.view.View
 import com.example.tchoutchou.constants.backgroundRatio
 import com.example.tchoutchou.logic.Game
-import com.example.tchoutchou.logic.MainMenuElements
-import com.example.tchoutchou.logic.ModalElements
+import com.example.tchoutchou.logic.elements.MainMenuElements
+import com.example.tchoutchou.logic.elements.ModalElements
+import com.example.tchoutchou.logic.elements.TransitionElements
 import com.example.tchoutchou.logic.train.TrainElements
 import com.example.tchoutchou.utils.Size
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,18 +27,29 @@ class MainActivity : AppCompatActivity() {
 
         game = Game(this)
 
-        game.mainMenuElements = MainMenuElements(main_title, start_game, options, quit_game)
-        game.storyManager.modalManager.setModalElements(this, ModalElements(modal, modal_sentence, choice_recycler, modal_title, modal_subtitle))
+        game.mainMenuElements =
+            MainMenuElements(
+                main_title,
+                start_game,
+                options,
+                quit_game
+            )
+        game.storyManager.modalManager.setModalElements(this,
+            ModalElements(
+                modal,
+                modal_sentence,
+                choice_recycler,
+                modal_title,
+                modal_subtitle
+            )
+        )
         game.backgroundManager.setElement(windowManager.defaultDisplay, game_background)
+        game.transitionManager.transitionElements = TransitionElements(game_transition)
 
         game.init()
 
         game.train.setElements(windowManager.defaultDisplay, TrainElements(game_train, train_smoke))
 
-        GlobalScope.async {
-            game.train.animateFromOutsideToLeft(false)
-            game.backgroundManager.animateOnTrainArriving()
-        }
         setHomeEvents()
     }
 
@@ -62,7 +75,6 @@ class MainActivity : AppCompatActivity() {
 
     fun setHomeEvents() {
         start_game.setOnClickListener {
-            game.hideMainMenu()
             GlobalScope.async {
                 game.run()
             }

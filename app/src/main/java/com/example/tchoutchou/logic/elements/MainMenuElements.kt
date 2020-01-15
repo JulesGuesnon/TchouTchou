@@ -1,4 +1,4 @@
-package com.example.tchoutchou.logic
+package com.example.tchoutchou.logic.elements
 
 import android.widget.TextView
 

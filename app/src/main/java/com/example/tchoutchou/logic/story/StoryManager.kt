@@ -36,6 +36,7 @@ class StoryManager {
         modalManager.setSentence(currentNode.sentence)
         println("> Before setting choices")
         modalManager.setChoices(currentNode.choices)
+        println("> After choices")
         return true
     }
 

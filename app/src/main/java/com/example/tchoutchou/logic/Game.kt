@@ -4,10 +4,12 @@ import android.content.Context
 import android.view.View
 import com.example.tchoutchou.R
 import com.example.tchoutchou.logic.character.Character
+import com.example.tchoutchou.logic.elements.MainMenuElements
 import com.example.tchoutchou.logic.events.EventManager
 import com.example.tchoutchou.logic.events.EventType
 import com.example.tchoutchou.logic.managers.BackgroundManager
 import com.example.tchoutchou.logic.managers.MusicManager
+import com.example.tchoutchou.logic.managers.TransitionManager
 import com.example.tchoutchou.logic.story.StoryManager
 import com.example.tchoutchou.logic.train.Station
 import com.example.tchoutchou.logic.train.Train
@@ -22,6 +24,7 @@ class Game(context: Context) {
         R.raw.home_sound
     )
     val backgroundManager = BackgroundManager()
+    val transitionManager = TransitionManager()
 
     lateinit var mainMenuElements: MainMenuElements
     lateinit var train: Train
@@ -41,17 +44,25 @@ class Game(context: Context) {
         storyManager.goTo("G1")
     }
 
+    suspend fun animateTrainArrive() {
+        train.animateFromOutsideToLeft(false)
+        backgroundManager.animateOnTrainArriving()
+    }
 
     suspend fun run() {
         musicManager.load(R.raw.mission_sound, true)
 
+        hideMainMenu()
+
+        train.animateFromOutsideLeftToOutsideRight()
         mainLoop@ while (train.driver.isAlive()) {
+            println("Begin Game Loop $step")
+            animateTrainArrive()
             eventManager.emit(EventType.BEFOREEVENT)
-            step++
-            println("Waiting for choice")
+
             storyManager.modalManager.say("Titre sérieux", "blague de yoan", 2000)
 
-            delay(100)
+            delay(300)
 
             storyManager.modalManager.show()
 
@@ -60,15 +71,16 @@ class Game(context: Context) {
             val choice = storyManager.waitForChoice()
 
             storyManager.modalManager.hide()
+
             println("Got choice: " + choice.choice)
+
             choice.callback(this)
 
-            println("Triggered choice callback")
-            println("Will go to ${choice.to}")
+            train.animateFromPositionToOutsideRight()
 
-            println("Before emit AFTERCHOICE")
+            transitionManager.show("Texte de yoan")
+
             eventManager.emit(EventType.AFTERCHOICE)
-            println("After emit AFTERCHOICE")
 
             println("Before goTo")
 
@@ -76,28 +88,37 @@ class Game(context: Context) {
 
             println("After goTo")
 
-            println("Before emit AFTEREVENT")
             eventManager.emit(EventType.AFTEREVENT)
-            println("After emit AFTEREVENT")
 
             println("Went to ${choice.to}")
 
-            delay(1000)
-            println("END")
+            delay(2000)
+
+            println("Transition before hide")
+            transitionManager.hide()
+            println("Transition afterhide")
+            println("End of loop $step")
+            step++
         }
     }
 
-    fun hideMainMenu() {
-        mainMenuElements.options.visibility = View.GONE
-        mainMenuElements.quitGame.visibility = View.GONE
-        mainMenuElements.startGame.visibility = View.GONE
-        mainMenuElements.title.visibility = View.GONE
+    suspend fun hideMainMenu() {
+        mainMenuElements.options.post {
+            mainMenuElements.options.visibility = View.GONE
+            mainMenuElements.quitGame.visibility = View.GONE
+            mainMenuElements.startGame.visibility = View.GONE
+            mainMenuElements.title.visibility = View.GONE
+        }
+
+        delay(300)
     }
 
     fun showMainMenu() {
-        mainMenuElements.options.visibility = View.VISIBLE
-        mainMenuElements.quitGame.visibility = View.VISIBLE
-        mainMenuElements.startGame.visibility = View.VISIBLE
-        mainMenuElements.title.visibility = View.VISIBLE
+        mainMenuElements.options.post {
+            mainMenuElements.options.visibility = View.VISIBLE
+            mainMenuElements.quitGame.visibility = View.VISIBLE
+            mainMenuElements.startGame.visibility = View.VISIBLE
+            mainMenuElements.title.visibility = View.VISIBLE
+        }
     }
 }

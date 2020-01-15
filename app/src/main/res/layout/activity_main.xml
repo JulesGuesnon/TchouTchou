@@ -98,7 +98,9 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="24dp"
+        android:alpha="0"
         android:background="@drawable/modal"
+        android:elevation="10dp"
         android:paddingHorizontal="20dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -198,5 +200,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/train_main"
         tools:srcCompat="@drawable/train_main" />
+
+    <TextView
+        android:id="@+id/game_transition"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="Transition"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="#000"
+        android:gravity="center"
+        android:textColor="#FFF"
+        android:fontFamily="@font/vt323"
+        android:textSize="32dp"
+        android:visibility="gone"
+        android:alpha="0"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

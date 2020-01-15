@@ -7,7 +7,7 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tchoutchou.ChoiceItem
-import com.example.tchoutchou.logic.ModalElements
+import com.example.tchoutchou.logic.elements.ModalElements
 import com.example.tchoutchou.logic.story.Choice
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
@@ -22,16 +22,33 @@ class ModalManager (val choiceChannel: Channel<Choice>) {
     lateinit var choiceItemAdapter: ItemAdapter<ChoiceItem>
     val mainHandler = Handler(Looper.getMainLooper())
 
-    fun hide() {
+    suspend fun hide() {
         elements.modal.post {
-            elements.modal.visibility = View.GONE
+            elements
+                .modal
+                .animate()
+                .setDuration(500)
+                .alpha(0f)
+                .withEndAction {
+                    elements.modal.visibility = View.GONE
+                }
         }
+        delay(500)
     }
 
-    fun show() {
+    suspend fun show() {
         elements.modal.post {
             elements.modal.visibility = View.VISIBLE
+
+            elements
+                .modal
+                .animate()
+                .setDuration(500)
+                .alpha(1f)
         }
+
+        delay(500)
+
     }
 
     suspend fun say(title: String, subtitle: String, delayTime: Long) {
@@ -90,9 +107,7 @@ class ModalManager (val choiceChannel: Channel<Choice>) {
 
     fun setChoices(choices: Array<Choice>) {
         mainHandler.post {
-            println("> ModalManager: Before add")
             choiceItemAdapter.add(choices.map { ChoiceItem(it) })
-            println("> ModalManager: After add")
         }
     }
 }
