@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.View
 import com.example.tchoutchou.constants.backgroundRatio
 import com.example.tchoutchou.logic.Game
+import com.example.tchoutchou.logic.api.ApiService
+import com.example.tchoutchou.logic.api.StationsModel
 import com.example.tchoutchou.logic.elements.MainMenuElements
 import com.example.tchoutchou.logic.elements.ModalElements
 import com.example.tchoutchou.logic.elements.TransitionElements
@@ -16,6 +18,9 @@ import kotlinx.android.synthetic.main.fragment_game.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 

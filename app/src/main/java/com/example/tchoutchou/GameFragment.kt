@@ -9,6 +9,7 @@ import com.example.tchoutchou.constants.backgroundRatio
 import com.example.tchoutchou.logic.Game
 import com.example.tchoutchou.logic.elements.MainMenuElements
 import com.example.tchoutchou.logic.elements.ModalElements
+import com.example.tchoutchou.logic.elements.StationElements
 import com.example.tchoutchou.logic.elements.TransitionElements
 import com.example.tchoutchou.logic.train.TrainElements
 import com.example.tchoutchou.utils.Size
@@ -61,6 +62,7 @@ class GameFragment(val game: Game): Fragment() {
 
         game.train.setElements(display, TrainElements(game_train, train_smoke))
         game.train.driver.display = display
+        game.train.stationManager.elements = StationElements(game_station_name)
 
         setHomeEvents()
         setShopEvents()

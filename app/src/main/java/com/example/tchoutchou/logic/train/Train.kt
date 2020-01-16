@@ -10,6 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.marginBottom
 import com.example.tchoutchou.constants.*
 import com.example.tchoutchou.logic.character.Character
+import com.example.tchoutchou.logic.managers.StationManager
 import com.example.tchoutchou.utils.Size
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -17,6 +18,8 @@ import kotlinx.coroutines.delay
 import java.lang.Exception
 
 class Train private constructor(val driver: Character, val stats: Statistics, currentStation: Station) {
+
+    val stationManager = StationManager()
 
     val stationHistory = mutableListOf<Station>()
     var currentStation: Station

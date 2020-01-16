@@ -11,6 +11,7 @@
         android:id="@+id/row_choice_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/vt323"
         android:text="Placeholder"
         android:textColor="#FFF"

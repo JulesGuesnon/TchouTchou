@@ -192,14 +192,17 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.85" />
 
-    <ImageView
+    <pl.droidsonroids.gif.GifImageView
         android:id="@+id/game_train"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/train_main"
         app:srcCompat="@drawable/train_main"
-        tools:srcCompat="@drawable/train_main" />
+        tools:srcCompat="@drawable/train_main"
+        android:elevation="2dp"
+        />
 
     <TextView
         android:id="@+id/game_transition"
@@ -244,5 +247,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icon_cart"
         tools:srcCompat="@drawable/icon_cart" />
+
+    <TextView
+        android:id="@+id/game_station_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Placeholder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="#FFF"
+        android:fontFamily="@font/vt323"
+        android:visibility="gone"
+        android:textSize="24dp"
+        android:alpha="0"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
