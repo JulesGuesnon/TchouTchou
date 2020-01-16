@@ -11,6 +11,7 @@ import com.example.tchoutchou.logic.elements.TransitionElements
 import com.example.tchoutchou.logic.train.TrainElements
 import com.example.tchoutchou.utils.Size
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_game.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
@@ -19,38 +20,19 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var game : Game
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setBackgroundSize()
 
         game = Game(this)
 
-        game.mainMenuElements =
-            MainMenuElements(
-                main_title,
-                start_game,
-                options,
-                quit_game
-            )
-        game.storyManager.modalManager.setModalElements(this,
-            ModalElements(
-                modal,
-                modal_sentence,
-                choice_recycler,
-                modal_title,
-                modal_subtitle
-            )
-        )
-        game.backgroundManager.setElement(windowManager.defaultDisplay, game_background)
-        game.transitionManager.transitionElements = TransitionElements(game_transition)
-
-        game.init()
-
-        game.train.setElements(windowManager.defaultDisplay, TrainElements(game_train, train_smoke))
-
-        setHomeEvents()
+        supportFragmentManager
+            .beginTransaction()
+            .add(fragment_container.id, GameFragment.newInstance(game))
+            .addToBackStack("tchou")
+            .commit()
     }
 
     override fun onPause() {
@@ -73,21 +55,6 @@ class MainActivity : AppCompatActivity() {
         if (hasFocus) hideSystemUI()
     }
 
-    fun setHomeEvents() {
-        start_game.setOnClickListener {
-            GlobalScope.async {
-                game.run()
-            }
-        }
-
-        options.setOnClickListener {
-            println("options")
-        }
-
-        quit_game.setOnClickListener {
-            System.exit(0)
-        }
-    }
 
     private fun hideSystemUI() {
         window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_IMMERSIVE
@@ -99,12 +66,5 @@ class MainActivity : AppCompatActivity() {
                 // Hide the nav bar and status bar
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_FULLSCREEN)
-    }
-
-    fun setBackgroundSize() {
-        val windowHeight = Size.getHeightFromDisplay(windowManager.defaultDisplay)
-
-        game_background.layoutParams.height = windowHeight
-        game_background.layoutParams.width = windowHeight * backgroundRatio.toInt()
     }
 }

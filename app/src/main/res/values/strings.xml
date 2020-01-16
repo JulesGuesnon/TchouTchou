@@ -1,6 +1,18 @@
 <resources>
     <string name="app_name">Tchoutchou</string>
     <string name="new_game">Start new game</string>
+    <string name="shop">Shop</string>
+    <string name="go_back">Return</string>
+    <string name="train_parts">Train Parts</string>
+    <string name="bronze_upgrade_title">Bronze Upgrade</string>
+    <string name="bronze_upgrade_price">14T$</string>
+    <string name="bronze_upgrade_description">Faster train, better life</string>
+    <string name="silver_upgrade_title">Silver Upgrade</string>
+    <string name="silver_upgrade_description">Ideal for hanging out</string>
+    <string name="silver_upgrade_price">28T$</string>
+    <string name="gold_upgrade_title">Gold Upgrade</string>
+    <string name="gold_upgrade_description">Faster than light</string>
+    <string name="gold_upgrade_price">42T$</string>
     <string name="options">Options</string>
     <string name="quit_game">Quit game</string>
 </resources>

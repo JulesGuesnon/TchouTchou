@@ -46,4 +46,13 @@ class BackgroundManager {
 
         delay(animationDuration)
     }
+
+    suspend fun resetBackgroundPosition() {
+        background.post {
+            background
+                .animate()
+                .setDuration(0)
+                .translationX(0f)
+        }
+    }
 }

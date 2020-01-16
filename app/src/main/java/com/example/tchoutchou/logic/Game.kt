@@ -13,6 +13,8 @@ import com.example.tchoutchou.logic.managers.TransitionManager
 import com.example.tchoutchou.logic.story.StoryManager
 import com.example.tchoutchou.logic.train.Station
 import com.example.tchoutchou.logic.train.Train
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 
 class Game(context: Context) {
@@ -42,6 +44,9 @@ class Game(context: Context) {
         train.driver.game = this
 
         storyManager.goTo("G1")
+        GlobalScope.async {
+            backgroundManager.animateFromLeftToRight()
+        }
     }
 
     suspend fun animateTrainArrive() {
@@ -108,6 +113,8 @@ class Game(context: Context) {
             mainMenuElements.quitGame.visibility = View.GONE
             mainMenuElements.startGame.visibility = View.GONE
             mainMenuElements.title.visibility = View.GONE
+            mainMenuElements.shopImage.visibility = View.GONE
+            mainMenuElements.shopText.visibility = View.GONE
         }
 
         delay(300)
@@ -119,6 +126,8 @@ class Game(context: Context) {
             mainMenuElements.quitGame.visibility = View.VISIBLE
             mainMenuElements.startGame.visibility = View.VISIBLE
             mainMenuElements.title.visibility = View.VISIBLE
+            mainMenuElements.shopImage.visibility = View.VISIBLE
+            mainMenuElements.shopText.visibility = View.VISIBLE
         }
     }
 }
