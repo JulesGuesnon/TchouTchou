@@ -198,9 +198,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:src="@drawable/train_main"
-        app:srcCompat="@drawable/train_main"
-        tools:srcCompat="@drawable/train_main"
+        android:src="@drawable/train_standard"
+        app:srcCompat="@drawable/train_standard"
+        tools:srcCompat="@drawable/train_standard"
         android:elevation="2dp"
         />
 

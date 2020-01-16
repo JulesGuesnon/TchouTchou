@@ -145,6 +145,11 @@
     <string name="B5_choice_1">Philanthropy first!</string>
     <string name="B5_choice_2">My gun game is kinda rusty, let’s train a bit.</string>
 
+    <string name="RAND1_title">Highway to hell</string>
+    <string name="RAND1_subtitle">Mom get the camera!</string>
+    <string name="RAND1_sentence">That’s not a bedtime story anymore. *coughs* and that thing smells like shiii... Oow lordy, it’s looking at you now. I don’t want to force your hand but it seems like you’ll have to fight. Ok bye.</string>
+    <string name="RAND1_choice_1">I\'m one with the force and the force is with me.</string>
+
     <string name="transition_standard_1">Everything went fine. At least that’s how you feel.</string>
     <string name="transition_standard_2">You’re like the king of good choices. You should think about writing a book</string>
     <string name="transition_standard_3">The engine is purring so nicely that you almost fell asleep. What a time to be alive.</string>

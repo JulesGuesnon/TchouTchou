@@ -98,6 +98,8 @@ class Game(val context: Context, val display: Display) {
 
             animateTrainArrive()
 
+            train.pauseAnimation()
+
             train.stationManager.show(train.currentStation.name)
 
             storyManager.currentNode.characters.forEachIndexed {i, it ->
@@ -106,6 +108,7 @@ class Game(val context: Context, val display: Display) {
                     - (i * 0.3 * characterWidth).toFloat()
                 )
             }
+
             eventManager.emit(EventType.BEFOREEVENT)
 
             storyManager.modalManager.say(storyManager.currentNode.title, storyManager.currentNode.subtitle, 2000)
@@ -125,6 +128,8 @@ class Game(val context: Context, val display: Display) {
             choice.callback(this)
 
             train.stationManager.hide()
+
+            train.runAnimation()
 
             train.animateFromPositionToOutsideRight()
 
@@ -175,6 +180,7 @@ class Game(val context: Context, val display: Display) {
             else -> t(R.string.transition_standard_1)
         }
 
+        train.stationManager.hide()
         transitionManager.show(endTransition)
 
         delay(500)

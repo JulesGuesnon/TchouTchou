@@ -15,6 +15,7 @@ import com.example.tchoutchou.utils.Size
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
+import pl.droidsonroids.gif.GifDrawable
 import java.lang.Exception
 
 class Train private constructor(val driver: Character, val stats: Statistics, currentStation: Station) {
@@ -222,5 +223,17 @@ class Train private constructor(val driver: Character, val stats: Statistics, cu
         }
 
         delay(animationTime)
+    }
+
+    fun pauseAnimation() {
+        trainElements.train.post {
+            (trainElements.train.drawable as GifDrawable).pause()
+        }
+    }
+
+    fun runAnimation() {
+        trainElements.train.post {
+            (trainElements.train.drawable as GifDrawable).start()
+        }
     }
 }
