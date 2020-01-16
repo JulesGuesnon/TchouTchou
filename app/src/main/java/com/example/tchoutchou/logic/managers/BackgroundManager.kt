@@ -11,6 +11,7 @@ class BackgroundManager {
     lateinit var background: GifImageView
     lateinit var display: Display
     var widthToTranslate = 0f
+    var currentBackground: Int = -1
 
     fun setElement(display: Display, background: GifImageView) {
         this.background = background
@@ -57,10 +58,14 @@ class BackgroundManager {
     }
 
     suspend fun loadBackground(background: Int) {
-        this.background.post {
-            println("Have to load background")
-            this.background.setImageResource(background)
+        if (currentBackground != background) {
+            currentBackground = background
+
+            this.background.post {
+                println("Have to load background")
+                this.background.setImageResource(background)
+            }
+            delay(500)
         }
-        delay(500)
     }
 }

@@ -14,10 +14,10 @@ val pinkStory = arrayOf(
         t(R.string.P1_sentence),
         R.drawable.background_destroyed,
         arrayOf(
-            Choice(t(R.string.P1_choice_1), "P2") {
+            Choice(t(R.string.P1_choice_1), t(R.string.transition_attack),"P2") {
                 // Attaque des goules
             },
-            Choice(t(R.string.P1_choice_2), "P2") {
+            Choice(t(R.string.P1_choice_2), t(R.string.transition_luck_buff),"P2") {
                 it.train.driver.addModifier(
                     Modifier(Stats.LUCK, 0.1, -1)
                 )
@@ -31,8 +31,8 @@ val pinkStory = arrayOf(
         t(R.string.P2_sentence),
         R.drawable.background_destroyed,
         arrayOf(
-            Choice(t(R.string.P1_choice_1), "PU1"),
-            Choice(t(R.string.P1_choice_2), "P3")
+            Choice(t(R.string.P2_choice_1), t(R.string.transition_attack),"PU1"),
+            Choice(t(R.string.P2_choice_2), t(R.string.transition_standard_4),"P3")
         )
     ),
     StoryNode(
@@ -42,8 +42,8 @@ val pinkStory = arrayOf(
         t(R.string.P1_sentence),
         R.drawable.background_destroyed,
         arrayOf(
-            Choice(t(R.string.P1_choice_1), "G6"),
-            Choice(t(R.string.P1_choice_2), "death") {
+            Choice(t(R.string.P3_choice_1), t(R.string.transition_standard_3),"G6"),
+            Choice(t(R.string.P3_choice_2), t(R.string.transition_over),"death") {
                 it.train.driver.setDead()
             }
         )

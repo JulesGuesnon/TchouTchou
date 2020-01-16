@@ -60,7 +60,14 @@ class Inventory (val size: Int) {
     }
 
     fun getAllBonuses(): Statistics {
-        val stats = Statistics.Builder().baseLimited(false).build()
+        val stats = Statistics
+            .Builder()
+            .life(0.0)
+            .food(0.0)
+            .luck(0.0)
+            .strength(0.0)
+            .baseLimited(false)
+            .build()
 
         slots.forEach {
             it as Item

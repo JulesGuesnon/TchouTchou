@@ -13,7 +13,7 @@ class Statistics private constructor(val baseLife: Double, val baseStrength: Dou
         set(value) {
             if (value > baseLife && baseLimited) {
                 field = baseLife
-            } else if (value < 0.0) {
+            } else if (value < 0.0 && baseLimited) {
                 field = 0.0
             } else {
                 field = value
@@ -33,9 +33,9 @@ class Statistics private constructor(val baseLife: Double, val baseStrength: Dou
 
     var luck = baseLuck
         set(value) {
-            if (value > 1.0) {
+            if (value > 1.0 && baseLimited) {
                 field = 1.0
-            } else if (value < 0.0) {
+            } else if (value < 0.0 && baseLimited) {
                 field = 0.0
             } else {
                 field = value
@@ -58,6 +58,7 @@ class Statistics private constructor(val baseLife: Double, val baseStrength: Dou
     }
 
     fun applyBonuses(bonuses: Statistics) {
+        println("applyBonuses ${bonuses.life}")
         life = baseLife + bonuses.life
         strength = baseStrength + bonuses.strength
         luck = baseLuck + bonuses.luck

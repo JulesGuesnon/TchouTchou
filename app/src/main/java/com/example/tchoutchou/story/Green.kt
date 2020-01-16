@@ -16,8 +16,8 @@ val greenStory = arrayOf(
         t(R.string.G1_sentence),
         R.drawable.background_tunnel,
         arrayOf(
-            Choice(t(R.string.G1_choice_1), "G2"),
-            Choice(t(R.string.G1_choice_2), "Y1")
+            Choice(t(R.string.G1_choice_1), t(R.string.transition_standard_1),"G2"),
+            Choice(t(R.string.G1_choice_2), t(R.string.transition_standard_2), "Y1")
         )
     ),
     StoryNode(
@@ -27,8 +27,8 @@ val greenStory = arrayOf(
         t(R.string.G2_sentence),
         R.drawable.background_destroyed,
         arrayOf(
-            Choice(t(R.string.G2_choice_1), "G3"),
-            Choice(t(R.string.G2_choice_2), "R1")
+            Choice(t(R.string.G2_choice_1), t(R.string.transition_standard_2), "G3"),
+            Choice(t(R.string.G2_choice_2), t(R.string.transition_flee), "R1")
         )
     ),
     StoryNode(
@@ -38,10 +38,10 @@ val greenStory = arrayOf(
         t(R.string.G3_sentence),
         R.drawable.background_destroyed,
         arrayOf(
-            Choice(t(R.string.G3_choice_1), "G4") {
+            Choice(t(R.string.G3_choice_1), t(R.string.transition_luck_nerf), "G4") {
                 it.train.driver.addModifier(Modifier(Stats.LUCK, -0.1, -1))
             },
-            Choice(t(R.string.G3_choice_2), "G4") {
+            Choice(t(R.string.G3_choice_2), t(R.string.transition_passenger_buff), "G4") {
                 val character = Character(
                     "Bobby",
                     Statistics.Builder().build()
@@ -60,8 +60,8 @@ val greenStory = arrayOf(
         t(R.string.G4_sentence),
         R.drawable.background_camp,
         arrayOf(
-            Choice(t(R.string.G4_choice_1), "G5"),
-            Choice(t(R.string.G4_choice_2), "R2")
+            Choice(t(R.string.G4_choice_1), t(R.string.transition_standard_3), "G5"),
+            Choice(t(R.string.G4_choice_2), t(R.string.transition_standard_4),"R2")
         )
     ),
     StoryNode(
@@ -71,11 +71,11 @@ val greenStory = arrayOf(
         t(R.string.G5_sentence),
         R.drawable.background_camp,
         arrayOf(
-            Choice(t(R.string.G5_choice_1), "P1") {
+            Choice(t(R.string.G5_choice_1), t(R.string.transition_luck_nerf),"P1") {
                 it.train.driver.addModifier(Modifier(Stats.LUCK, -0.1, -1))
                 it.train.upgrade(Upgrade(Upgrades.WEAPON, 1.0))
             },
-            Choice(t(R.string.G5_choice_2), "G6") {
+            Choice(t(R.string.G5_choice_2), t(R.string.transition_standard_1),"G6") {
                 // it.shop.augmenterde10%
             }
         )
@@ -87,10 +87,10 @@ val greenStory = arrayOf(
         t(R.string.G6_sentence),
         R.drawable.background_tunnel,
         arrayOf(
-            Choice(t(R.string.G6_choice_1), "death") {
+            Choice(t(R.string.G6_choice_1), t(R.string.transition_standard_3),"death") {
                 it.train.driver.setDead()
             },
-            Choice(t(R.string.G6_choice_2), "G7") {
+            Choice(t(R.string.G6_choice_2), t(R.string.transition_flee),"G7") {
                 val fleeValue = Random.nextDouble(0.0, 1.0)
                 if (fleeValue < 0.2) {
                     it.train.driver.setDead()
@@ -105,10 +105,10 @@ val greenStory = arrayOf(
         t(R.string.G7_sentence),
         R.drawable.background_terminus,
         arrayOf(
-            Choice(t(R.string.G7_choice_1), "death") {
+            Choice(t(R.string.G7_choice_1),  t(R.string.transition_over),"death") {
                 it.train.driver.setDead()
             },
-            Choice(t(R.string.G7_choice_2), "death") {
+            Choice(t(R.string.G7_choice_2), t(R.string.transition_over),"death") {
                 it.train.driver.setDead()
             }
         )

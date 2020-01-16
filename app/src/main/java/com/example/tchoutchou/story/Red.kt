@@ -15,7 +15,7 @@ val redStory = arrayOf(
         t(R.string.R1_sentence),
         R.drawable.background_camp,
         arrayOf(
-            Choice(t(R.string.R1_choice_1), "R2") {
+            Choice(t(R.string.R1_choice_1), t(R.string.transition_passenger_buff),"R2") {
                 val pascal = Character("Pascal")
                 val chantal = Character("Chantal")
 
@@ -35,7 +35,7 @@ val redStory = arrayOf(
                     // alert("I'm sooooo full")
                 }
             },
-            Choice(t(R.string.R1_choice_2), "P1")
+            Choice(t(R.string.R1_choice_2), t(R.string.transition_flee),"P1")
         )
     ),
     StoryNode(
@@ -45,7 +45,7 @@ val redStory = arrayOf(
         t(R.string.R2_sentence),
         R.drawable.background_camp,
         arrayOf(
-            Choice(t(R.string.R2_choice_2), "R3") {
+            Choice(t(R.string.R2_choice_2), t(R.string.transition_standard_3),"R3") {
                 if (it.train.driver.money < 10) {
                     it.train.driver.setDead()
                 } else {
@@ -61,12 +61,12 @@ val redStory = arrayOf(
         t(R.string.R3_sentence),
         R.drawable.background_tunnel,
         arrayOf(
-            Choice(t(R.string.R3_choice_1), "B1") {
+            Choice(t(R.string.R3_choice_1), t(R.string.transition_luck_nerf),"B1") {
                 it.train.driver.addModifier(
                     Modifier(Stats.LUCK, -0.1, -1)
                 )
             },
-            Choice(t(R.string.R3_choice_2), "G6") {
+            Choice(t(R.string.R3_choice_2), t(R.string.transition_luck_buff),"G6") {
                 it.train.driver.addModifier(
                     Modifier(Stats.LUCK, 0.1, -1)
                 )

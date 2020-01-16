@@ -16,12 +16,12 @@ val yellowStory = arrayOf(
         t(R.string.Y1_sentence),
         R.drawable.background_tunnel,
         arrayOf(
-            Choice(t(R.string.Y1_choice_1), "Y2") {
+            Choice(t(R.string.Y1_choice_1), t(R.string.transition_locomotive_buff),"Y2") {
                 it.train.upgrade(
                     Upgrade(Upgrades.RAILCAR, 1.0)
                 )
             },
-            Choice(t(R.string.Y1_choice_2), "Y1") {
+            Choice(t(R.string.Y1_choice_2), t(R.string.transition_luck_buff),"Y2") {
                 it.train.driver.addModifier(
                     Modifier(Stats.LUCK, 0.1, -1)
                 )
@@ -35,12 +35,12 @@ val yellowStory = arrayOf(
         t(R.string.Y2_sentence),
         R.drawable.background_tunnel,
         arrayOf(
-            Choice(t(R.string.Y2_choice_1), "Y3") {
+            Choice(t(R.string.Y2_choice_1), t(R.string.transition_locomotive_buff),"Y3") {
                 it.train.upgrade(
                     Upgrade(Upgrades.WEAPON, 1.0)
                 )
             },
-            Choice(t(R.string.Y2_choice_2), "Y3") {
+            Choice(t(R.string.Y2_choice_2), t(R.string.transition_luck_buff),"Y3") {
                 it.train.driver.addModifier(
                     Modifier(Stats.LUCK, 0.1, -1)
                 )
@@ -54,8 +54,8 @@ val yellowStory = arrayOf(
         t(R.string.Y3_sentence),
         R.drawable.background_tunnel,
         arrayOf(
-            Choice(t(R.string.Y3_choice_1), "Y4"),
-            Choice(t(R.string.Y3_choice_2), "Y4")
+            Choice(t(R.string.Y3_choice_1), t(R.string.transition_standard_1),"Y4"),
+            Choice(t(R.string.Y3_choice_2), t(R.string.transition_standard_2),"Y4")
         )
     ),
     StoryNode(
@@ -65,8 +65,8 @@ val yellowStory = arrayOf(
         t(R.string.Y4_sentence),
         R.drawable.background_tunnel,
         arrayOf(
-            Choice(t(R.string.Y4_choice_1), "Y5"),
-            Choice(t(R.string.Y4_choice_2), "death") {
+            Choice(t(R.string.Y4_choice_1), t(R.string.transition_standard_4),"Y5"),
+            Choice(t(R.string.Y4_choice_2), t(R.string.transition_over),"death") {
                 it.train.driver.setDead()
             }
         )
@@ -78,10 +78,10 @@ val yellowStory = arrayOf(
         t(R.string.Y5_sentence),
         R.drawable.background_tunnel,
         arrayOf(
-            Choice(t(R.string.Y5_choice_1), "death") {
+            Choice(t(R.string.Y5_choice_1), t(R.string.transition_over),"death") {
                 it.train.driver.setDead()
             },
-            Choice(t(R.string.Y5_choice_1), "G1")
+            Choice(t(R.string.Y5_choice_2), t(R.string.transition_attack),"G1")
         )
     )
 )

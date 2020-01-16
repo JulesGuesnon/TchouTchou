@@ -13,9 +13,17 @@ import com.example.tchoutchou.logic.managers.TransitionManager
 import com.example.tchoutchou.logic.story.StoryManager
 import com.example.tchoutchou.logic.train.Station
 import com.example.tchoutchou.logic.train.Train
+import com.example.tchoutchou.story.greenStory
+import com.example.tchoutchou.story.t
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
+
+enum class GameState {
+    RUNNING,
+    WON,
+    OVER
+}
 
 class Game(context: Context) {
 
@@ -27,6 +35,7 @@ class Game(context: Context) {
     )
     val backgroundManager = BackgroundManager()
     val transitionManager = TransitionManager()
+    var state = GameState.RUNNING
 
     lateinit var mainMenuElements: MainMenuElements
     lateinit var train: Train
@@ -83,7 +92,12 @@ class Game(context: Context) {
 
             train.animateFromPositionToOutsideRight()
 
-            transitionManager.show("Texte de yoan")
+            if (train.driver.isDead()) {
+                state = GameState.OVER
+                break@mainLoop
+            }
+
+            transitionManager.show(choice.transition)
 
             eventManager.emit(EventType.AFTERCHOICE)
 
@@ -111,6 +125,27 @@ class Game(context: Context) {
             println("End of loop $step")
             step++
         }
+
+        println("Game ended")
+        val endTransition = when (state) {
+            GameState.OVER -> t(R.string.transition_over)
+            GameState.WON -> t(R.string.transition_win)
+            else -> t(R.string.transition_standard_1)
+        }
+
+        transitionManager.show(endTransition)
+
+        delay(500)
+
+        end()
+
+        showMainMenu()
+        delay(2000)
+
+        musicManager.load(R.raw.home_sound, true)
+        //backgroundManager.animateFromLeftToRight()
+
+        transitionManager.hide()
     }
 
     suspend fun hideMainMenu() {
@@ -135,5 +170,15 @@ class Game(context: Context) {
             mainMenuElements.shopImage.visibility = View.VISIBLE
             mainMenuElements.shopText.visibility = View.VISIBLE
         }
+    }
+
+
+    suspend fun end() {
+        train.setTrainOutLeft()
+        train.driver.reset()
+        backgroundManager.resetBackgroundPosition()
+        backgroundManager.loadBackground(R.drawable.background_tunnel)
+        storyManager.reset()
+        storyManager.goTo("G1")
     }
 }

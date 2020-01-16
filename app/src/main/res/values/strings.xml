@@ -144,4 +144,22 @@
     <string name="B5_sentence">Genocides are generally bad, but not today. Unfortunately, there are still a few survivors...</string>
     <string name="B5_choice_1">Philanthropy first!</string>
     <string name="B5_choice_2">My gun game is kinda rusty, let’s train a bit.</string>
+
+    <string name="transition_standard_1">Everything went fine. At least that’s how you feel.</string>
+    <string name="transition_standard_2">You’re like the king of good choices. You should think about writing a book</string>
+    <string name="transition_standard_3">The engine is purring so nicely that you almost fell asleep. What a time to be alive.</string>
+    <string name="transition_standard_4">Another day goes by. You’re already thinking about tomorrow.</string>
+    <string name="transition_win">“Waaaw, so impressive... You won, yeay...”</string>
+    <string name="transition_over">You\'re dead to me. In fact, you’re dead to everyone.</string>
+    <string name="transition_luck_buff">You feel lucky, chill out for a moment.</string>
+    <string name="transition_luck_nerf">Poor boy, the god of misfortune is against you... Obey and prey.</string>
+    <string name="transition_weapon_buff">Your Pew Pews got a lot bigger!</string>
+    <string name="transition_weapon_nerf">I hope you’re good at fist fighting, because that’s all you have now</string>
+    <string name="transition_passenger_buff">Welcome aboard! They’re new people coming in</string>
+    <string name="transition_passenger_nerf">Suddenly, you feel a bit more lonely. That’s probably because of the smell of that dead old man laying at the back of the train.</string>
+    <string name="transition_attack">*screams, blood, terror* That was a rough fight. Glad you didn\'t see it.</string>
+    <string name="transition_locomotive_buff">GOTTA GO FAST! Your Choo-Choo is getting faster and stronger and... cooler!</string>
+    <string name="transition_locomotive_nerf">It’s the same Choo-Choo, but less shiny, and less everything. In fact you’re probably gonna die soon. What a pity.</string>
+    <string name="transition_flee">Your parents are so disappointed. At least you’re alive for now.</string>
+    <string name="transition_exiting">Hasta la vista, for now.</string>
 </resources>

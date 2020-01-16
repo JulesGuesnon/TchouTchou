@@ -14,12 +14,12 @@ val purpleStory = arrayOf(
         t(R.string.PU1_sentence),
         R.drawable.background_destroyed,
         arrayOf(
-            Choice(t(R.string.PU1_choice_1), "G6") {
+            Choice(t(R.string.PU1_choice_1), t(R.string.transition_standard_3), "G6") {
                 it.train.driver.addModifier(
                     Modifier(Stats.LUCK, -0.1, -1)
                 )
             },
-            Choice(t(R.string.PU1_choice_2), "G6") {
+            Choice(t(R.string.PU1_choice_2), t(R.string.transition_standard_3),"G6") {
                 it.train.driver.addModifier(
                     Modifier(Stats.LUCK, -0.1, -1)
                 )

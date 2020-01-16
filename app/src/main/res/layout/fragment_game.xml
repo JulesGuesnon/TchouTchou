@@ -217,6 +217,7 @@
         android:textSize="32dp"
         android:visibility="gone"
         android:alpha="0"
+        android:elevation="100dp"
         />
 
     <TextView

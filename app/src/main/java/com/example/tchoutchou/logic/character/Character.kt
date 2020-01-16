@@ -9,12 +9,12 @@ enum class CharacterState {
     DEAD
 }
 
-open class Character(val name: String = "", val stats: Statistics = Statistics.Builder().build()): Events(null) {
+open class Character(val name: String = "", var stats: Statistics = Statistics.Builder().build()): Events(null) {
 
-    val inventory = Inventory(5)
+    var inventory = Inventory(5)
     var state = CharacterState.ALIVE
-    var money = 0.0
-    val modifiers = mutableListOf<Modifier>()
+    var money = 100.0
+    var modifiers = mutableListOf<Modifier>()
 
     init {
         this.registerEvent(EventType.BEFORECHOICE)
@@ -41,7 +41,14 @@ open class Character(val name: String = "", val stats: Statistics = Statistics.B
     }
 
     fun computeBonuses() {
-        val modifiersBonuses = Statistics.Builder().baseLimited(false).build()
+        val modifiersBonuses = Statistics
+            .Builder()
+            .baseLimited(false)
+            .food(0.0)
+            .life(0.0)
+            .luck(0.0)
+            .strength(0.0)
+            .build()
 
         for (modifier in modifiers) {
             when (modifier.type) {
@@ -66,13 +73,21 @@ open class Character(val name: String = "", val stats: Statistics = Statistics.B
         addModifier(
             Modifier(
                 Stats.LIFE,
-                stats.life,
+                -stats.life,
                 -1
             )
         )
+        computeBonuses()
     }
 
     override fun beforeChoice(game: Game) {
         println("BEFORE CHOICE OF ")
+    }
+
+    fun reset() {
+        modifiers = mutableListOf()
+        inventory = Inventory(5)
+        stats = Statistics.Builder().build()
+        state = CharacterState.ALIVE
     }
 }

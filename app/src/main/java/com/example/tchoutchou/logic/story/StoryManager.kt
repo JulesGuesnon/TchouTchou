@@ -8,7 +8,7 @@ import java.lang.Exception
 
 class StoryManager {
 
-    private val history = mutableListOf<StoryNode>()
+    private var history = mutableListOf<StoryNode>()
     private val choiceChannel = Channel<Choice>(1)
     val modalManager =
         ModalManager(choiceChannel)
@@ -62,5 +62,9 @@ class StoryManager {
             delay(300)
         }
         return choiceChannel.receive()
+    }
+
+    fun reset() {
+        history = mutableListOf()
     }
 }
