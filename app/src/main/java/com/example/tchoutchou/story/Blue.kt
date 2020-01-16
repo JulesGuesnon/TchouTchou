@@ -1,6 +1,9 @@
 package com.example.tchoutchou.story
 
 import com.example.tchoutchou.R
+import com.example.tchoutchou.constants.rascal1
+import com.example.tchoutchou.constants.rascal2
+import com.example.tchoutchou.constants.rascal3
 import com.example.tchoutchou.logic.character.Character
 import com.example.tchoutchou.logic.character.Modifier
 import com.example.tchoutchou.logic.character.Stats
@@ -29,7 +32,8 @@ val blueStory = arrayOf(
                     Modifier(Stats.LUCK, 0.1, -1)
                 )
             }
-        )
+        ),
+        arrayOf()
     ),
     StoryNode(
         "B2",
@@ -46,7 +50,8 @@ val blueStory = arrayOf(
             },
             Choice(t(R.string.B2_choice_2), t(R.string.transition_standard_3), "B3"),
             Choice(t(R.string.B2_choice_3), t(R.string.transition_flee),"P1")
-        )
+        ),
+        arrayOf()
     ),
     StoryNode(
         "B3",
@@ -60,6 +65,11 @@ val blueStory = arrayOf(
                 val deathChance = Random.nextDouble(0.0, 1.0)
                 if (deathChance < 0.5) it.train.driver.setDead()
             }
+        ),
+        arrayOf(
+            rascal1,
+            rascal2,
+            rascal3
         )
     ),
     StoryNode(
@@ -78,6 +88,11 @@ val blueStory = arrayOf(
                 val deathChance = Random.nextDouble(0.0, 1.0)
                 if (deathChance < 0.9) it.train.driver.setDead()
             }
+        ),
+        arrayOf(
+            rascal1,
+            rascal2,
+            rascal3
         )
     ),
     StoryNode(
@@ -112,6 +127,7 @@ val blueStory = arrayOf(
                     Modifier(Stats.LUCK, -0.1, -1)
                 )
             }
-        )
+        ),
+        arrayOf()
     )
 )

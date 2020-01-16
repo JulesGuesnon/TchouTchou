@@ -122,10 +122,14 @@ class Train private constructor(val driver: Character, val stats: Statistics, cu
         trainElements.train.layoutParams.height = (windowHeight * 0.5).toInt()
         trainElements.train.layoutParams.width = (trainElements.train.layoutParams.height.toDouble() * trainRatio).toInt()
 
-        trainElements.train.animate().duration = 0
-        trainElements.train.animate().translationY(
-            - ((backgroundHeightRatio + 1) * trackHeight).toFloat()
-        ).translationX(- trainElements.train.layoutParams.width.toFloat())
+        trainElements
+            .train
+            .animate()
+            .setDuration(0)
+            .translationY(
+                - ((backgroundHeightRatio + 1) * trackHeight).toFloat()
+            )
+            .translationX(- trainElements.train.layoutParams.width.toFloat())
 
         val windowTrainWidthRatio = trainElements.train.layoutParams.width.toDouble() / Size.getWidthFromDisplay(display).toDouble()
 

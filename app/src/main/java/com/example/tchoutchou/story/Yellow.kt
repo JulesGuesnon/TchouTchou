@@ -1,6 +1,7 @@
 package com.example.tchoutchou.story
 
 import com.example.tchoutchou.R
+import com.example.tchoutchou.constants.goul
 import com.example.tchoutchou.logic.character.Modifier
 import com.example.tchoutchou.logic.character.Stats
 import com.example.tchoutchou.logic.story.Choice
@@ -26,7 +27,8 @@ val yellowStory = arrayOf(
                     Modifier(Stats.LUCK, 0.1, -1)
                 )
             }
-        )
+        ),
+        arrayOf()
     ),
     StoryNode(
         "Y2",
@@ -45,7 +47,8 @@ val yellowStory = arrayOf(
                     Modifier(Stats.LUCK, 0.1, -1)
                 )
             }
-        )
+        ),
+        arrayOf()
     ),
     StoryNode(
         "Y3",
@@ -56,7 +59,8 @@ val yellowStory = arrayOf(
         arrayOf(
             Choice(t(R.string.Y3_choice_1), t(R.string.transition_standard_1),"Y4"),
             Choice(t(R.string.Y3_choice_2), t(R.string.transition_standard_2),"Y4")
-        )
+        ),
+        arrayOf()
     ),
     StoryNode(
         "Y4",
@@ -69,7 +73,8 @@ val yellowStory = arrayOf(
             Choice(t(R.string.Y4_choice_2), t(R.string.transition_over),"death") {
                 it.train.driver.setDead()
             }
-        )
+        ),
+        arrayOf()
     ),
     StoryNode(
         "Y5",
@@ -82,6 +87,7 @@ val yellowStory = arrayOf(
                 it.train.driver.setDead()
             },
             Choice(t(R.string.Y5_choice_2), t(R.string.transition_attack),"G1")
-        )
+        ),
+        arrayOf(goul)
     )
 )

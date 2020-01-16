@@ -19,3 +19,7 @@ val fireplaceHeightRatio = fireplace.y.toDouble() / trainHeight
 val smokeWidth = 32
 val smokeHeight = smokeWidth
 val smokeRatio = smokeHeight / smokeHeight
+
+val characterWidth = 240
+val characterHeight = 240
+val characterRatio = characterWidth / characterHeight

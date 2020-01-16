@@ -24,6 +24,7 @@ val purpleStory = arrayOf(
                     Modifier(Stats.LUCK, -0.1, -1)
                 )
             }
-        )
+        ),
+        arrayOf()
     )
 )

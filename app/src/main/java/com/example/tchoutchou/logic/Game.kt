@@ -1,6 +1,7 @@
 package com.example.tchoutchou.logic
 
 import android.content.Context
+import android.view.Display
 import android.view.View
 import com.example.tchoutchou.R
 import com.example.tchoutchou.logic.character.Character
@@ -10,10 +11,9 @@ import com.example.tchoutchou.logic.events.EventType
 import com.example.tchoutchou.logic.managers.BackgroundManager
 import com.example.tchoutchou.logic.managers.MusicManager
 import com.example.tchoutchou.logic.managers.TransitionManager
-import com.example.tchoutchou.logic.story.StoryManager
+import com.example.tchoutchou.logic.managers.StoryManager
 import com.example.tchoutchou.logic.train.Station
 import com.example.tchoutchou.logic.train.Train
-import com.example.tchoutchou.story.greenStory
 import com.example.tchoutchou.story.t
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -25,7 +25,7 @@ enum class GameState {
     OVER
 }
 
-class Game(context: Context) {
+class Game(val context: Context, val display: Display) {
 
     val storyManager = StoryManager()
     val eventManager = EventManager(this)
@@ -72,6 +72,14 @@ class Game(context: Context) {
         mainLoop@ while (train.driver.isAlive()) {
             println("Begin Game Loop $step")
             animateTrainArrive()
+
+
+            storyManager.currentNode.characters.forEachIndexed {i, it ->
+                val characterWidth = it.gifImageView?.layoutParams?.width ?: 1
+                it.animateFromOutsideRightToRight(
+                    - (i * 0.3 * characterWidth).toFloat()
+                )
+            }
             eventManager.emit(EventType.BEFOREEVENT)
 
             storyManager.modalManager.say(storyManager.currentNode.title, storyManager.currentNode.subtitle, 2000)
@@ -99,9 +107,15 @@ class Game(context: Context) {
 
             transitionManager.show(choice.transition)
 
+            delay(500)
+
             eventManager.emit(EventType.AFTERCHOICE)
 
             println("Before goTo")
+
+            storyManager.currentNode.characters.forEach {
+                it.deleteCharacterView(mainMenuElements.constraintLayout)
+            }
 
             storyManager.goTo(choice.to)
 
@@ -114,6 +128,10 @@ class Game(context: Context) {
             backgroundManager.loadBackground(storyManager.currentNode.background)
 
 
+            storyManager.currentNode.characters.forEach {
+                it.display = display
+                it.loadCharacterOutsideRight(context, mainMenuElements.constraintLayout)
+            }
 
             delay(2000)
 

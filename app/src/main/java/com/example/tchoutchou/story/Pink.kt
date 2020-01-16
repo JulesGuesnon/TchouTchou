@@ -1,6 +1,8 @@
 package com.example.tchoutchou.story
 
 import com.example.tchoutchou.R
+import com.example.tchoutchou.constants.goul
+import com.example.tchoutchou.constants.joe
 import com.example.tchoutchou.logic.character.Modifier
 import com.example.tchoutchou.logic.character.Stats
 import com.example.tchoutchou.logic.story.Choice
@@ -22,6 +24,9 @@ val pinkStory = arrayOf(
                     Modifier(Stats.LUCK, 0.1, -1)
                 )
             }
+        ),
+        arrayOf(
+            goul
         )
     ),
     StoryNode(
@@ -33,7 +38,8 @@ val pinkStory = arrayOf(
         arrayOf(
             Choice(t(R.string.P2_choice_1), t(R.string.transition_attack),"PU1"),
             Choice(t(R.string.P2_choice_2), t(R.string.transition_standard_4),"P3")
-        )
+        ),
+        arrayOf(joe)
     ),
     StoryNode(
         "P3",
@@ -46,6 +52,7 @@ val pinkStory = arrayOf(
             Choice(t(R.string.P3_choice_2), t(R.string.transition_over),"death") {
                 it.train.driver.setDead()
             }
-        )
+        ),
+        arrayOf(joe)
     )
 )

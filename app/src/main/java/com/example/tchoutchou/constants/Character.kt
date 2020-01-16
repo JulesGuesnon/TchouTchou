@@ -1,5 +1,7 @@
 package com.example.tchoutchou.constants
 
+import com.example.tchoutchou.R
+import com.example.tchoutchou.logic.character.Character
 import com.example.tchoutchou.logic.character.Statistics
 import java.lang.Exception
 
@@ -18,3 +20,17 @@ val characterStatsValidator: (Statistics) -> Unit = {
         }
 
 }
+
+val rascal1 = Character("Cantal", Statistics.Builder().build(), R.drawable.character_rascal1)
+val rascal2 = Character("Pascal", Statistics.Builder().build(), R.drawable.character_rascal2)
+val rascal3 = Character("Chantal", Statistics.Builder().build(), R.drawable.character_rascal3)
+
+val seller = Character("Paul", Statistics.Builder().build(), R.drawable.character_seller)
+
+val reaper = Character("Reaper", Statistics.Builder().build(), R.drawable.character_reaper)
+
+val theManWhoSuffer = Character("TheManWhoSuffer", Statistics.Builder().build(), R.drawable.character_lemecquiamal)
+
+val joe = Character("Joe", Statistics.Builder().build(), R.drawable.character_joe)
+
+val goul = Character("Goul", Statistics.Builder().build(), R.drawable.character_goul)

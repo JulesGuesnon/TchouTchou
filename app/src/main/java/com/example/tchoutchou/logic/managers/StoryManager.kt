@@ -1,6 +1,9 @@
-package com.example.tchoutchou.logic.story
+package com.example.tchoutchou.logic.managers
 
-import com.example.tchoutchou.logic.managers.ModalManager
+import com.example.tchoutchou.logic.story.Choice
+import com.example.tchoutchou.logic.story.SideQuest
+import com.example.tchoutchou.logic.story.StoryNode
+import com.example.tchoutchou.logic.story.StoryNodeId
 import com.example.tchoutchou.story.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay

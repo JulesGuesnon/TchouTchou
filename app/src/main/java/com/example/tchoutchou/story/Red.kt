@@ -1,6 +1,9 @@
 package com.example.tchoutchou.story
 
 import com.example.tchoutchou.R
+import com.example.tchoutchou.constants.rascal1
+import com.example.tchoutchou.constants.rascal2
+import com.example.tchoutchou.constants.rascal3
 import com.example.tchoutchou.logic.character.Character
 import com.example.tchoutchou.logic.character.Modifier
 import com.example.tchoutchou.logic.character.Stats
@@ -36,6 +39,11 @@ val redStory = arrayOf(
                 }
             },
             Choice(t(R.string.R1_choice_2), t(R.string.transition_flee),"P1")
+        ),
+        arrayOf(
+            rascal1,
+            rascal2,
+            rascal3
         )
     ),
     StoryNode(
@@ -52,7 +60,8 @@ val redStory = arrayOf(
                     it.train.driver.money -= 10
                 }
             }
-        )
+        ),
+        arrayOf()
     ),
     StoryNode(
         "R3",
@@ -71,6 +80,7 @@ val redStory = arrayOf(
                     Modifier(Stats.LUCK, 0.1, -1)
                 )
             }
-        )
+        ),
+        arrayOf()
     )
 )

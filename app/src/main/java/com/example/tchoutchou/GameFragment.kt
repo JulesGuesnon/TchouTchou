@@ -42,7 +42,8 @@ class GameFragment(val game: Game): Fragment() {
                 options,
                 quit_game,
                 shop_text,
-                shop_image
+                shop_image,
+                main_layout
             )
         game.storyManager.modalManager.setModalElements(context,
             ModalElements(
@@ -59,6 +60,7 @@ class GameFragment(val game: Game): Fragment() {
         game.init()
 
         game.train.setElements(display, TrainElements(game_train, train_smoke))
+        game.train.driver.display = display
 
         setHomeEvents()
         setShopEvents()

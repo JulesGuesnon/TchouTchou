@@ -1,6 +1,8 @@
 package com.example.tchoutchou.story
 
 import com.example.tchoutchou.R
+import com.example.tchoutchou.constants.seller
+import com.example.tchoutchou.constants.theManWhoSuffer
 import com.example.tchoutchou.logic.character.*
 import com.example.tchoutchou.logic.story.Choice
 import com.example.tchoutchou.logic.story.StoryNode
@@ -18,7 +20,8 @@ val greenStory = arrayOf(
         arrayOf(
             Choice(t(R.string.G1_choice_1), t(R.string.transition_standard_1),"G2"),
             Choice(t(R.string.G1_choice_2), t(R.string.transition_standard_2), "Y1")
-        )
+        ),
+        arrayOf()
     ),
     StoryNode(
         "G2",
@@ -29,7 +32,8 @@ val greenStory = arrayOf(
         arrayOf(
             Choice(t(R.string.G2_choice_1), t(R.string.transition_standard_2), "G3"),
             Choice(t(R.string.G2_choice_2), t(R.string.transition_flee), "R1")
-        )
+        ),
+        arrayOf()
     ),
     StoryNode(
         "G3",
@@ -51,6 +55,9 @@ val greenStory = arrayOf(
 
                 // alert("${character.name} ce join à la fête !")
             }
+        ),
+        arrayOf(
+            theManWhoSuffer
         )
     ),
     StoryNode(
@@ -62,7 +69,8 @@ val greenStory = arrayOf(
         arrayOf(
             Choice(t(R.string.G4_choice_1), t(R.string.transition_standard_3), "G5"),
             Choice(t(R.string.G4_choice_2), t(R.string.transition_standard_4),"R2")
-        )
+        ),
+        arrayOf()
     ),
     StoryNode(
         "G5",
@@ -78,6 +86,9 @@ val greenStory = arrayOf(
             Choice(t(R.string.G5_choice_2), t(R.string.transition_standard_1),"G6") {
                 // it.shop.augmenterde10%
             }
+        ),
+        arrayOf(
+            seller
         )
     ),
     StoryNode(
@@ -96,7 +107,8 @@ val greenStory = arrayOf(
                     it.train.driver.setDead()
                 }
             }
-        )
+        ),
+        arrayOf()
     ),
     StoryNode(
         "G7",
@@ -111,6 +123,7 @@ val greenStory = arrayOf(
             Choice(t(R.string.G7_choice_2), t(R.string.transition_over),"death") {
                 it.train.driver.setDead()
             }
-        )
+        ),
+        arrayOf()
     )
 )

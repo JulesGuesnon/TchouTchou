@@ -1,20 +1,34 @@
 package com.example.tchoutchou.logic.character
 
+import android.content.Context
+import android.view.Display
+import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
+import com.example.tchoutchou.constants.backgroundHeight
+import com.example.tchoutchou.constants.trackHeight
 import com.example.tchoutchou.logic.Game
+import com.example.tchoutchou.logic.elements.CharacterElements
 import com.example.tchoutchou.logic.events.EventType
 import com.example.tchoutchou.logic.events.Events
+import com.example.tchoutchou.utils.Size
+import kotlinx.coroutines.delay
+import pl.droidsonroids.gif.GifImageView
 
 enum class CharacterState {
     ALIVE,
     DEAD
 }
 
-open class Character(val name: String = "", var stats: Statistics = Statistics.Builder().build()): Events(null) {
+open class Character(val name: String = "", var stats: Statistics = Statistics.Builder().build(), val texture: Int = -1): Events(null) {
 
     var inventory = Inventory(5)
     var state = CharacterState.ALIVE
     var money = 100.0
     var modifiers = mutableListOf<Modifier>()
+
+    var gifImageView: GifImageView? = null
+    lateinit var display: Display
 
     init {
         this.registerEvent(EventType.BEFORECHOICE)
@@ -89,5 +103,64 @@ open class Character(val name: String = "", var stats: Statistics = Statistics.B
         inventory = Inventory(5)
         stats = Statistics.Builder().build()
         state = CharacterState.ALIVE
+    }
+
+    fun setCharacterOutsideRight() {
+        val gifImageView = this.gifImageView
+        if (gifImageView == null) return
+
+        gifImageView.post {
+            val windowHeight = Size.getHeightFromDisplay(display).toFloat()
+            val backgroundHeightRatio = backgroundHeight / windowHeight
+
+            println(((backgroundHeightRatio + 1) * trackHeight))
+            gifImageView
+                .animate()
+                .setDuration(0)
+                .translationX(Size.getWidthFromDisplay(display).toFloat() + gifImageView.layoutParams.width)
+                .translationY( windowHeight - gifImageView.layoutParams.height - ((backgroundHeightRatio + 1) * trackHeight * 4).toFloat())
+        }
+    }
+
+    fun loadCharacterOutsideRight(context: Context, constraintLayout: ConstraintLayout) {
+        gifImageView = GifImageView(context)
+        val gifImageView = this.gifImageView
+        if (gifImageView == null) return
+
+        constraintLayout.post {
+
+            gifImageView.setImageResource(texture)
+            val imageSize = (Size.getHeightFromDisplay(display) * 0.3).toInt()
+            gifImageView.layoutParams = ViewGroup.LayoutParams(imageSize, imageSize)
+
+            setCharacterOutsideRight()
+
+            constraintLayout.addView(gifImageView)
+        }
+    }
+
+    suspend fun animateFromOutsideRightToRight(gap: Float) {
+        val gifImageView = this.gifImageView
+        if (gifImageView == null) return
+
+        val animationTime = 500L
+        gifImageView.post {
+            gifImageView
+                .animate()
+                .setDuration(animationTime)
+                .translationX(
+                    (Size.getWidthFromDisplay(display).toFloat() - gifImageView.layoutParams.width + gifImageView.layoutParams.width * 0.5f) + gap
+                )
+        }
+
+        delay(animationTime)
+    }
+
+
+    fun deleteCharacterView(constraintLayout: ConstraintLayout) {
+        constraintLayout.post {
+            constraintLayout.removeView(gifImageView)
+            gifImageView = null
+        }
     }
 }
