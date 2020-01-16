@@ -22,4 +22,12 @@ class Railcar(val capacity: Int) {
     fun addPassenger(passenger: Character) {
         slots.push(passenger)
     }
+
+    fun countPassengers(): Int {
+        var count = 0
+        slots.forEach {
+            if (it != null) ++count
+        }
+        return count
+    }
 }

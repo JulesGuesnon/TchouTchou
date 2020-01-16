@@ -1,5 +1,6 @@
 package com.example.tchoutchou.logic.managers
 
+import com.example.tchoutchou.logic.Game
 import com.example.tchoutchou.logic.story.Choice
 import com.example.tchoutchou.logic.story.SideQuest
 import com.example.tchoutchou.logic.story.StoryNode
@@ -9,12 +10,12 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import java.lang.Exception
 
-class StoryManager {
+class StoryManager(val game: Game, val soundEffectManager: MusicManager) {
 
     private var history = mutableListOf<StoryNode>()
     private val choiceChannel = Channel<Choice>(1)
     val modalManager =
-        ModalManager(choiceChannel)
+        ModalManager(choiceChannel, soundEffectManager)
 
     var currentNode
         get() = history[history.size - 1]
@@ -36,9 +37,13 @@ class StoryManager {
         currentNode = parseQuestId(questId)
 
         println("> Before setting sentence")
-        modalManager.setSentence(currentNode.sentence)
+        modalManager.setSentence(
+            replaceStringConstant(currentNode.sentence)
+        )
         println("> Before setting choices")
-        modalManager.setChoices(currentNode.choices)
+        modalManager.setChoices(
+            currentNode.choices
+        )
         println("> After choices")
         return true
     }
@@ -69,5 +74,10 @@ class StoryManager {
 
     fun reset() {
         history = mutableListOf()
+    }
+
+    fun replaceStringConstant(input: String): String {
+        return input
+            .replace("{PASSENGER_NUMBER}", game.train.countPassengers().toString())
     }
 }

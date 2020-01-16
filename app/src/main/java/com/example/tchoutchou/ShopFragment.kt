@@ -5,9 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.tchoutchou.logic.Game
 import kotlinx.android.synthetic.main.fragment_shop.*
 
-class ShopFragment: Fragment() {
+class ShopFragment(val game: Game): Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -26,12 +27,13 @@ class ShopFragment: Fragment() {
             val fragmentManager = activity?.supportFragmentManager
 
             if (fragmentManager != null) {
+                game.musicManager.load(R.raw.sound_home, true, true, 1f)
                 fragmentManager.popBackStack()
             }
         }
     }
 
     companion object {
-        fun newInstance() = ShopFragment()
+        fun newInstance(game: Game) = ShopFragment(game)
     }
 }

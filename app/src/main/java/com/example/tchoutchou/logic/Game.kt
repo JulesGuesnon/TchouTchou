@@ -1,6 +1,7 @@
 package com.example.tchoutchou.logic
 
 import android.content.Context
+import android.os.Handler
 import android.view.Display
 import android.view.View
 import com.example.tchoutchou.R
@@ -32,12 +33,15 @@ enum class GameState {
 
 class Game(val context: Context, val display: Display) {
 
-    val storyManager = StoryManager()
     val eventManager = EventManager(this)
     val musicManager = MusicManager(
         context,
-        R.raw.home_sound
+        R.raw.sound_home
     )
+    val soundEffectManager = MusicManager(context, R.raw.sound_effect_modal_pop, false)
+
+    val storyManager = StoryManager(this, soundEffectManager)
+
     val backgroundManager = BackgroundManager()
     val transitionManager = TransitionManager()
     var state = GameState.RUNNING
@@ -87,7 +91,7 @@ class Game(val context: Context, val display: Display) {
     }
 
     suspend fun run() {
-        musicManager.load(R.raw.mission_sound, true)
+        musicManager.load(R.raw.sound_mission, playOnReady = true, isLooping = true, volume = 0.7f)
 
         hideMainMenu()
 
@@ -111,7 +115,7 @@ class Game(val context: Context, val display: Display) {
 
             eventManager.emit(EventType.BEFOREEVENT)
 
-            storyManager.modalManager.say(storyManager.currentNode.title, storyManager.currentNode.subtitle, 2000)
+            storyManager.modalManager.say(storyManager.currentNode.title, storyManager.currentNode.subtitle, 3000)
 
             delay(300)
 
@@ -190,7 +194,7 @@ class Game(val context: Context, val display: Display) {
         showMainMenu()
         delay(2000)
 
-        musicManager.load(R.raw.home_sound, true)
+        musicManager.load(R.raw.sound_home, true)
         //backgroundManager.animateFromLeftToRight()
 
         transitionManager.hide()

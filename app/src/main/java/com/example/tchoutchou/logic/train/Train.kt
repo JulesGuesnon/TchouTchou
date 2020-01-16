@@ -236,4 +236,12 @@ class Train private constructor(val driver: Character, val stats: Statistics, cu
             (trainElements.train.drawable as GifDrawable).start()
         }
     }
+
+    fun countPassengers(): Int {
+        var count = 0
+        for (railcar in railcars) {
+            count += railcar.countPassengers()
+        }
+        return count
+    }
 }

@@ -91,9 +91,11 @@ class GameFragment(val game: Game): Fragment() {
             if (supportFragmentManager != null) {
             supportFragmentManager
                 .beginTransaction()
-                .add(R.id.fragment_container, ShopFragment.newInstance())
+                .add(R.id.fragment_container, ShopFragment.newInstance(game))
                 .addToBackStack("tchou")
                 .commit()
+
+                game.musicManager.load(R.raw.sound_shop, true, true, 1f)
             }
         }
 
@@ -103,9 +105,11 @@ class GameFragment(val game: Game): Fragment() {
             if (supportFragmentManager != null) {
                 supportFragmentManager
                     .beginTransaction()
-                    .add(R.id.fragment_container, ShopFragment.newInstance())
+                    .add(R.id.fragment_container, ShopFragment.newInstance(game))
                     .addToBackStack("tchou")
                     .commit()
+
+                game.musicManager.load(R.raw.sound_shop, true, true, 1f)
             }
         }
     }
