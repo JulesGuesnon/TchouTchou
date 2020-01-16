@@ -1,5 +1,6 @@
 package com.example.tchoutchou.story
 
+import com.example.tchoutchou.R
 import com.example.tchoutchou.logic.character.Modifier
 import com.example.tchoutchou.logic.character.Stats
 import com.example.tchoutchou.logic.story.Choice
@@ -8,12 +9,15 @@ import com.example.tchoutchou.logic.story.StoryNode
 val pinkStory = arrayOf(
     StoryNode(
         "P1",
-        "Eh oui, vous êtes bloqué, vous faites moins le malin d’un coup. Ce serait quand même pas top de se faire manger par les goules ",
+        t(R.string.P1_title),
+        t(R.string.P1_subtitle),
+        t(R.string.P1_sentence),
+        R.drawable.background_destroyed,
         arrayOf(
-            Choice("J’en fais de la bouillie ", "P2") {
+            Choice(t(R.string.P1_choice_1), "P2") {
                 // Attaque des goules
             },
-            Choice("Oui non pas ouf en effet", "P2") {
+            Choice(t(R.string.P1_choice_2), "P2") {
                 it.train.driver.addModifier(
                     Modifier(Stats.LUCK, 0.1, -1)
                 )
@@ -22,18 +26,24 @@ val pinkStory = arrayOf(
     ),
     StoryNode(
         "P2",
-        "Vous vous remettez de vos émotions lorsque un petit homme vous susurre à l’oreille “tout va bien ?”. Vous êtes surpris, ce petit homme à une salopette et plein d’outils.",
+        t(R.string.P2_title),
+        t(R.string.P2_subtitle),
+        t(R.string.P2_sentence),
+        R.drawable.background_destroyed,
         arrayOf(
-            Choice("Vous avez le mauvais reflexe de lui mettre un coup de coude, il tombe raide mort", "PU1"),
-            Choice("Tu susurres souvent à l’oreille des gens comme ça ?", "P3")
+            Choice(t(R.string.P1_choice_1), "PU1"),
+            Choice(t(R.string.P1_choice_2), "P3")
         )
     ),
     StoryNode(
         "P3",
-        "Il s’excuse de vous avoir surpris, pour se faire pardonner, il vous propose un réparation gratuite.",
+        t(R.string.P1_title),
+        t(R.string.P1_subtitle),
+        t(R.string.P1_sentence),
+        R.drawable.background_destroyed,
         arrayOf(
-            Choice("On dit pas non quand c’est gratuit", "G6"),
-            Choice("Vous dites non même si vous savez que vous allez vous faire manger par les goules", "death") {
+            Choice(t(R.string.P1_choice_1), "G6"),
+            Choice(t(R.string.P1_choice_2), "death") {
                 it.train.driver.setDead()
             }
         )

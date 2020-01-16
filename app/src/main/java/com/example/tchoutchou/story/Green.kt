@@ -1,5 +1,6 @@
 package com.example.tchoutchou.story
 
+import com.example.tchoutchou.R
 import com.example.tchoutchou.logic.character.*
 import com.example.tchoutchou.logic.story.Choice
 import com.example.tchoutchou.logic.story.StoryNode
@@ -10,28 +11,37 @@ import kotlin.random.Random
 val greenStory = arrayOf(
     StoryNode(
         "G1",
-        "Vous vous apprêtez à vous aventurer sur une ligne sans foi ni loi, êtes-vous sûr de bien vouloir sortir de la station protectrice ?",
+        t(R.string.G1_title),
+        t(R.string.G1_subtitle),
+        t(R.string.G1_sentence),
+        R.drawable.background_tunnel,
         arrayOf(
-            Choice("Oui je veux y aller ! C’est parti pour l’aventure !", "G2"),
-            Choice("Non c’est bon, je veux rester chez moi et jouer à Minecraft...", "Y1")
+            Choice(t(R.string.G1_choice_1), "G2"),
+            Choice(t(R.string.G1_choice_2), "Y1")
         )
     ),
     StoryNode(
         "G2",
-        "Vous avez pris la route et vous arrivez à la première station, le voyage s’est bien passé. Vous vous reposez avant de reprendre la route et au loin vous entendez une voix... ",
+        t(R.string.G2_title),
+        t(R.string.G2_subtitle),
+        t(R.string.G2_sentence),
+        R.drawable.background_destroyed,
         arrayOf(
-            Choice("Je vais aller voir", "G3"),
-            Choice("Je mets l’accélérateur à fond et je fonce dans l’tas", "R1")
+            Choice(t(R.string.G2_choice_1), "G3"),
+            Choice(t(R.string.G2_choice_2), "R1")
         )
     ),
     StoryNode(
         "G3",
-        "Vous découvrez un jeune homme sur les rails, il semble blessé. Vous vous demandez si vous devez l’aider ou pas.",
+        t(R.string.G3_title),
+        t(R.string.G3_subtitle),
+        t(R.string.G3_sentence),
+        R.drawable.background_destroyed,
         arrayOf(
-            Choice("Ici, pas de pitié", "G4") {
+            Choice(t(R.string.G3_choice_1), "G4") {
                 it.train.driver.addModifier(Modifier(Stats.LUCK, -0.1, -1))
             },
-            Choice("Bon allez, ça a pas l’air d’être un mauvais gars", "G4") {
+            Choice(t(R.string.G3_choice_2), "G4") {
                 val character = Character(
                     "Bobby",
                     Statistics.Builder().build()
@@ -45,33 +55,42 @@ val greenStory = arrayOf(
     ),
     StoryNode(
         "G4",
-        "Vous arrivez dans une station complètement déserte, pourtant vous voyez bien qu’il y a eu des habitants récemment.",
+        t(R.string.G4_title),
+        t(R.string.G4_subtitle),
+        t(R.string.G4_sentence),
+        R.drawable.background_camp,
         arrayOf(
-            Choice("J’explore, doit y avoir du bon loot", "G5"),
-            Choice("Oulah, très peu pour moi", "R2")
+            Choice(t(R.string.G4_choice_1), "G5"),
+            Choice(t(R.string.G4_choice_2), "R2")
         )
     ),
     StoryNode(
         "G5",
-        "Au loin, des lumières, ce qui est plutôt rare dans ce coin. vous vous approchez doucement de ces lumières et vous vous rendez compte que ce sont des marchands.",
+        t(R.string.G5_title),
+        t(R.string.G5_subtitle),
+        t(R.string.G5_sentence),
+        R.drawable.background_camp,
         arrayOf(
-            Choice("Je vais les attaquer et me faire du stuff :3", "P1") {
+            Choice(t(R.string.G5_choice_1), "P1") {
                 it.train.driver.addModifier(Modifier(Stats.LUCK, -0.1, -1))
                 it.train.upgrade(Upgrade(Upgrades.WEAPON, 1.0))
             },
-            Choice("J’ai fait école de commerce, je peux négocier un bon prix ", "G6") {
+            Choice(t(R.string.G5_choice_2), "G6") {
                 // it.shop.augmenterde10%
             }
         )
     ),
     StoryNode(
         "G6",
-        "Vous aviez entendu une légende avant de partir à l’aventure, celle d’un homme qui découpe ses proies en deux et laisse seulement la tête. En voyant devant vous un cimetière de têtes, vous vous demandez si elle serait quand-même pas un peu vraie cette légende...",
+        t(R.string.G6_title),
+        t(R.string.G6_subtitle),
+        t(R.string.G6_sentence),
+        R.drawable.background_tunnel,
         arrayOf(
-            Choice("Pfff, c’est des bêtises, jmets d’la musique et j’avance pépère", "death") {
+            Choice(t(R.string.G6_choice_1), "death") {
                 it.train.driver.setDead()
             },
-            Choice("Je fuis très très vite", "G7") {
+            Choice(t(R.string.G6_choice_2), "G7") {
                 val fleeValue = Random.nextDouble(0.0, 1.0)
                 if (fleeValue < 0.2) {
                     it.train.driver.setDead()
@@ -81,12 +100,15 @@ val greenStory = arrayOf(
     ),
     StoryNode(
         "G7",
-        "Le terminus, est-ce donc la terre promise ? Vous arrivez en station, seule les lumières d’urgences éclairent ce qu’il reste de cette station pleine de poussière, vous vous demandez si vous avez bien fait de partir.",
+        t(R.string.G7_title),
+        t(R.string.G7_subtitle),
+        t(R.string.G7_sentence),
+        R.drawable.background_terminus,
         arrayOf(
-            Choice("J’aurais dû rester jouer à Minecraft", "death") {
+            Choice(t(R.string.G7_choice_1), "death") {
                 it.train.driver.setDead()
             },
-            Choice("J’ai pu me faire un ami, et c’est ça l’important :)", "death") {
+            Choice(t(R.string.G7_choice_2), "death") {
                 it.train.driver.setDead()
             }
         )

@@ -65,7 +65,7 @@ class Game(context: Context) {
             animateTrainArrive()
             eventManager.emit(EventType.BEFOREEVENT)
 
-            storyManager.modalManager.say("Titre sérieux", "blague de yoan", 2000)
+            storyManager.modalManager.say(storyManager.currentNode.title, storyManager.currentNode.subtitle, 2000)
 
             delay(300)
 
@@ -91,13 +91,19 @@ class Game(context: Context) {
 
             storyManager.goTo(choice.to)
 
-            println("After goTo")
-
-            eventManager.emit(EventType.AFTEREVENT)
-
             println("Went to ${choice.to}")
 
+            delay(500)
+
+            backgroundManager.resetBackgroundPosition()
+
+            backgroundManager.loadBackground(storyManager.currentNode.background)
+
+
+
             delay(2000)
+
+            eventManager.emit(EventType.AFTEREVENT)
 
             println("Transition before hide")
             transitionManager.hide()

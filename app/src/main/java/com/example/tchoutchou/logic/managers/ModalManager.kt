@@ -48,7 +48,6 @@ class ModalManager (val choiceChannel: Channel<Choice>) {
         }
 
         delay(500)
-
     }
 
     suspend fun say(title: String, subtitle: String, delayTime: Long) {

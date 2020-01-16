@@ -1,5 +1,6 @@
 package com.example.tchoutchou.story
 
+import com.example.tchoutchou.R
 import com.example.tchoutchou.logic.character.Character
 import com.example.tchoutchou.logic.character.Modifier
 import com.example.tchoutchou.logic.character.Stats
@@ -9,9 +10,12 @@ import com.example.tchoutchou.logic.story.StoryNode
 val redStory = arrayOf(
     StoryNode(
         "R1",
-        "Dans l’adrénaline de la fuite, vous prenez un mauvais virage et vous atterissez dans la station des traîtres, bien connue pour accueillir toute sorte de rascal",
+        t(R.string.R1_title),
+        t(R.string.R1_subtitle),
+        t(R.string.R1_sentence),
+        R.drawable.background_camp,
         arrayOf(
-            Choice("Rascal ou pas, ça fait des hommes en plus", "R2") {
+            Choice(t(R.string.R1_choice_1), "R2") {
                 val pascal = Character("Pascal")
                 val chantal = Character("Chantal")
 
@@ -31,14 +35,17 @@ val redStory = arrayOf(
                     // alert("I'm sooooo full")
                 }
             },
-            Choice("Waaaaaah je m’arrête pas je mets les gaz ", "P1")
+            Choice(t(R.string.R1_choice_2), "P1")
         )
     ),
     StoryNode(
         "R2",
-        "ça fait quelques jours que vous êtes partis, et vous arrivez enfin à la première station civilisée de votre aventure. Vous en profitez pour vous arrêter et explorer.",
+        t(R.string.R2_title),
+        t(R.string.R2_subtitle),
+        t(R.string.R2_sentence),
+        R.drawable.background_camp,
         arrayOf(
-            Choice("Réparer ma locomotive", "R3") {
+            Choice(t(R.string.R2_choice_2), "R3") {
                 if (it.train.driver.money < 10) {
                     it.train.driver.setDead()
                 } else {
@@ -49,14 +56,17 @@ val redStory = arrayOf(
     ),
     StoryNode(
         "R3",
-        "Un gros boum, puis un zblah, puis un zcraaaatch, un regard, un wagon disparu, {PASSENGER_NUMBER} morts.",
+        t(R.string.R3_title),
+        t(R.string.R3_subtitle),
+        t(R.string.R3_sentence),
+        R.drawable.background_tunnel,
         arrayOf(
-            Choice("Meh, 1 de perdu 10 de retrouvés", "B1") {
+            Choice(t(R.string.R3_choice_1), "B1") {
                 it.train.driver.addModifier(
                     Modifier(Stats.LUCK, -0.1, -1)
                 )
             },
-            Choice("Je vais les enterrer quand-même", "G6") {
+            Choice(t(R.string.R3_choice_2), "G6") {
                 it.train.driver.addModifier(
                     Modifier(Stats.LUCK, 0.1, -1)
                 )

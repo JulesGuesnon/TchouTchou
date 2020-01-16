@@ -55,4 +55,12 @@ class BackgroundManager {
                 .translationX(0f)
         }
     }
+
+    suspend fun loadBackground(background: Int) {
+        this.background.post {
+            println("Have to load background")
+            this.background.setImageResource(background)
+        }
+        delay(500)
+    }
 }

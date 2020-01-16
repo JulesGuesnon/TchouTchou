@@ -21,7 +21,7 @@
         android:layout_width="512px"
         android:layout_height="128px"
         android:scaleType="fitXY"
-        android:src="@drawable/tunnel"
+        android:src="@drawable/background_tunnel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
