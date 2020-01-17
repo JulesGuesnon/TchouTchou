@@ -239,6 +239,8 @@ class Game(val context: Context, val display: Display) {
 
 
     suspend fun end() {
+        train.tier = 0
+        train.upgrade()
         train.setTrainOutLeft()
         train.driver.reset()
         backgroundManager.resetBackgroundPosition()
