@@ -60,6 +60,7 @@ class StoryManager(val game: Game, val soundEffectManager: MusicManager) {
             "P" -> return pinkStory[id]
             "G" -> return greenStory[id]
             "R" -> return redStory[id]
+            "RAND" -> return randomStory[id]
         }
 
         throw Exception("Wtf was that provided id: $questId")

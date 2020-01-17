@@ -103,19 +103,16 @@ val blueStory = arrayOf(
         R.drawable.background_camp,
         arrayOf(
             Choice(t(R.string.B5_choice_1),t(R.string.transition_passenger_buff), "G6") {
-                val pascal = Character("Pascal")
-                val chantal = Character("Chantal")
-
                 if (it.train.canAddPassenger(2)) {
                     it.train.addPassenger(
-                        pascal
+                        rascal1
                     )
 
                     it.train.addPassenger(
-                        chantal
+                        rascal2
                     )
                 } else if (it.train.canAddPassenger()) {
-                    it.train.addPassenger(chantal)
+                    it.train.addPassenger(rascal2)
 
                     // alert("ADIEU PASCAL :''''(")
                 } else {

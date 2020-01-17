@@ -55,7 +55,7 @@ class Game(val context: Context, val display: Display) {
         train = Train
             .Builder()
             .driver(
-                Character("Billy")
+                Character("Billy"){_, _, _, _ -> }
             )
             .currentStation(Station("Montparnasse"))
             .build()
@@ -108,7 +108,7 @@ class Game(val context: Context, val display: Display) {
 
             storyManager.currentNode.characters.forEachIndexed {i, it ->
                 val characterWidth = it.gifImageView?.layoutParams?.width ?: 1
-                it.animateFromOutsideRightToRight(
+                it.animateEnter(
                     - (i * 0.3 * characterWidth).toFloat()
                 )
             }
@@ -139,6 +139,9 @@ class Game(val context: Context, val display: Display) {
 
             if (train.driver.isDead()) {
                 state = GameState.OVER
+                storyManager.currentNode.characters.forEach {
+                    it.deleteCharacterView(mainMenuElements.constraintLayout)
+                }
                 break@mainLoop
             }
 
@@ -165,6 +168,9 @@ class Game(val context: Context, val display: Display) {
 
             storyManager.currentNode.characters.forEach {
                 it.display = display
+                it.constraintLayout = mainMenuElements.constraintLayout
+                it.context = context
+
                 it.loadCharacterOutsideRight(context, mainMenuElements.constraintLayout)
             }
 

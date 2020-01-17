@@ -49,7 +49,7 @@ val greenStory = arrayOf(
                 val character = Character(
                     "Bobby",
                     Statistics.Builder().build()
-                )
+                ) {_, _ , _, _ ->}
 
                 it.train.addPassenger(character)
 
@@ -98,9 +98,7 @@ val greenStory = arrayOf(
         t(R.string.G6_sentence),
         R.drawable.background_tunnel,
         arrayOf(
-            Choice(t(R.string.G6_choice_1), t(R.string.transition_standard_3),"death") {
-                it.train.driver.setDead()
-            },
+            Choice(t(R.string.G6_choice_1), t(R.string.transition_standard_3),"RAND1"),
             Choice(t(R.string.G6_choice_2), t(R.string.transition_flee),"G7") {
                 val fleeValue = Random.nextDouble(0.0, 1.0)
                 if (fleeValue < 0.2) {

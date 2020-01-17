@@ -20,7 +20,7 @@ enum class CharacterState {
     DEAD
 }
 
-open class Character(val name: String = "", var stats: Statistics = Statistics.Builder().build(), val texture: Int = -1): Events(null) {
+open class Character(val name: String = "", var stats: Statistics = Statistics.Builder().build(), val texture: Int = -1, val enterAnimation: suspend (Character, Float, Context, ConstraintLayout) -> Unit): Events(null) {
 
     var inventory = Inventory(5)
     var state = CharacterState.ALIVE
@@ -29,6 +29,8 @@ open class Character(val name: String = "", var stats: Statistics = Statistics.B
 
     var gifImageView: GifImageView? = null
     lateinit var display: Display
+    lateinit var context: Context
+    lateinit var constraintLayout: ConstraintLayout
 
     init {
         this.registerEvent(EventType.BEFORECHOICE)
@@ -139,21 +141,8 @@ open class Character(val name: String = "", var stats: Statistics = Statistics.B
         }
     }
 
-    suspend fun animateFromOutsideRightToRight(gap: Float) {
-        val gifImageView = this.gifImageView
-        if (gifImageView == null) return
-
-        val animationTime = 500L
-        gifImageView.post {
-            gifImageView
-                .animate()
-                .setDuration(animationTime)
-                .translationX(
-                    (Size.getWidthFromDisplay(display).toFloat() - gifImageView.layoutParams.width + gifImageView.layoutParams.width * 0.5f) + gap
-                )
-        }
-
-        delay(animationTime)
+    suspend fun animateEnter(gap: Float) {
+        enterAnimation(this, gap, context, constraintLayout)
     }
 
 

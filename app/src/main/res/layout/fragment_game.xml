@@ -29,7 +29,7 @@
         android:id="@+id/train_smoke"
         android:layout_width="160px"
         android:layout_height="160px"
-        android:src="@drawable/train_smoke"
+        android:src="@drawable/smoke_train"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
     <androidx.constraintlayout.widget.Guideline

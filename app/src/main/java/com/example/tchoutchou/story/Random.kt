@@ -5,7 +5,7 @@ import com.example.tchoutchou.constants.reaper
 import com.example.tchoutchou.logic.story.Choice
 import com.example.tchoutchou.logic.story.StoryNode
 
-val randomEvents = arrayOf(
+val randomStory = arrayOf(
     StoryNode(
         "RAND1",
         t(R.string.RAND1_title),

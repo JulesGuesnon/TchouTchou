@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.tchoutchou.constants.backgroundRatio
+import com.example.tchoutchou.constants.reaper
 import com.example.tchoutchou.logic.Game
 import com.example.tchoutchou.logic.elements.MainMenuElements
 import com.example.tchoutchou.logic.elements.ModalElements
@@ -17,6 +18,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_game.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 
 class GameFragment(val game: Game): Fragment() {
     override fun onCreateView(
