@@ -19,7 +19,7 @@ Along the way, he faces many challenges and choices that can help him improve hi
 
 Tchoutchou is inspired by games such as Faster Than Light, The Oregon Trail, This War Of Mine and Papers, Please.
 
-## How to hack on `Tchoutchou` ? :dance:
+## How to hack on `Tchoutchou` ? :man_dancing:
 
 ### Requirements :zap:
 
