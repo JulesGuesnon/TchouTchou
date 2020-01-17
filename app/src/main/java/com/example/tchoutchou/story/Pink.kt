@@ -44,8 +44,8 @@ val pinkStory = arrayOf(
     StoryNode(
         "P3",
         t(R.string.P1_title),
-        t(R.string.P1_subtitle),
-        t(R.string.P1_sentence),
+        t(R.string.P3_subtitle),
+        t(R.string.P3_sentence),
         R.drawable.background_destroyed,
         arrayOf(
             Choice(t(R.string.P3_choice_1), t(R.string.transition_standard_3),"G6"),
