@@ -28,7 +28,8 @@ import retrofit2.Response
 enum class GameState {
     RUNNING,
     WON,
-    OVER
+    OVER,
+    TRANSITIONNING
 }
 
 class Game(val context: Context, val display: Display) {
@@ -58,9 +59,12 @@ class Game(val context: Context, val display: Display) {
                 Character("Billy"){_, _, _, _ -> }
             )
             .currentStation(Station("Montparnasse"))
+            .texture(R.drawable.train_standard)
             .build()
 
         train.driver.game = this
+
+        train.soundEffectManager = soundEffectManager
 
         storyManager.goTo("G1")
         GlobalScope.async {
@@ -135,8 +139,6 @@ class Game(val context: Context, val display: Display) {
 
             train.runAnimation()
 
-            train.animateFromPositionToOutsideRight()
-
             if (train.driver.isDead()) {
                 state = GameState.OVER
                 storyManager.currentNode.characters.forEach {
@@ -145,6 +147,9 @@ class Game(val context: Context, val display: Display) {
                 break@mainLoop
             }
 
+            train.animateFromPositionToOutsideRight()
+
+            state = GameState.TRANSITIONNING
             transitionManager.show(choice.transition)
 
             delay(500)
@@ -179,6 +184,8 @@ class Game(val context: Context, val display: Display) {
             eventManager.emit(EventType.AFTEREVENT)
 
             transitionManager.hide()
+
+            state = GameState.RUNNING
             println("End of loop $step")
             step++
         }

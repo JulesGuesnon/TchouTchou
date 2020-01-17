@@ -8,8 +8,10 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.marginBottom
+import com.example.tchoutchou.R
 import com.example.tchoutchou.constants.*
 import com.example.tchoutchou.logic.character.Character
+import com.example.tchoutchou.logic.managers.MusicManager
 import com.example.tchoutchou.logic.managers.StationManager
 import com.example.tchoutchou.utils.Size
 import kotlinx.coroutines.GlobalScope
@@ -18,7 +20,7 @@ import kotlinx.coroutines.delay
 import pl.droidsonroids.gif.GifDrawable
 import java.lang.Exception
 
-class Train private constructor(val driver: Character, val stats: Statistics, currentStation: Station) {
+class Train private constructor(val driver: Character, val stats: Statistics, currentStation: Station, var texture: Int) {
 
     val stationManager = StationManager()
 
@@ -31,8 +33,11 @@ class Train private constructor(val driver: Character, val stats: Statistics, cu
 
     val railcars = mutableListOf<Railcar>()
     val upgrades = HashMap<Upgrades, Upgrade>()
+    var tier = 1
+
     lateinit var trainElements: TrainElements
     lateinit var display: Display
+    lateinit var soundEffectManager: MusicManager
 
     init {
         stationHistory.add(currentStation)
@@ -71,17 +76,19 @@ class Train private constructor(val driver: Character, val stats: Statistics, cu
         }
     }
 
-    data class Builder (var driver: Character = Character() {_, _, _, _ ->}, var maxFuel: Int =  10, var stats: Statistics = Statistics.Builder().build(), var currentStation: Station = Station("")) {
+    data class Builder (var driver: Character = Character() {_, _, _, _ ->}, var maxFuel: Int =  10, var stats: Statistics = Statistics.Builder().build(), var currentStation: Station = Station(""), var texture: Int = -1) {
         fun driver(driver: Character) = apply { this.driver = driver }
         fun maxFuel(maxFuel: Int) = apply { this.maxFuel = maxFuel }
         fun stats(stats: Statistics) = apply { this.stats = stats }
         fun currentStation(currentStation: Station) = apply { this.currentStation = currentStation }
+        fun texture(texture: Int) = apply { this.texture = texture }
 
         fun build(): Train {
             return Train(
                 driver,
                 stats,
-                currentStation
+                currentStation,
+                texture
             )
         }
     }
@@ -239,5 +246,32 @@ class Train private constructor(val driver: Character, val stats: Statistics, cu
             count += railcar.countPassengers()
         }
         return count
+    }
+
+    fun loadTexture() {
+        trainElements.train.post {
+            trainElements.train.setImageResource(texture)
+
+            val windowHeight =  Size.getHeightFromDisplay(display).toDouble()
+            val backgroundHeightRatio = backgroundHeight / windowHeight
+            trainElements.train.translationY = -((backgroundHeightRatio + 1) * trackHeight).toFloat() * 2
+        }
+    }
+
+    fun upgrade() {
+        if (tier == 3) return
+        ++this.tier
+
+        val newTexture = when (tier) {
+            1 -> R.drawable.train_standard
+            2 -> R.drawable.train_weapon
+            3 -> R.drawable.train_weapon_strength
+            else -> R.drawable.train_standard
+        }
+
+        texture = newTexture
+
+        soundEffectManager.load(R.raw.sound_effect_upgrade, playOnReady = true, isLooping = false)
+        loadTexture()
     }
 }

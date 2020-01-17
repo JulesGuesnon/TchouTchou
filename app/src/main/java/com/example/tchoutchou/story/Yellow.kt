@@ -2,12 +2,15 @@ package com.example.tchoutchou.story
 
 import com.example.tchoutchou.R
 import com.example.tchoutchou.constants.goul
+import com.example.tchoutchou.logic.GameState
 import com.example.tchoutchou.logic.character.Modifier
 import com.example.tchoutchou.logic.character.Stats
 import com.example.tchoutchou.logic.story.Choice
 import com.example.tchoutchou.logic.story.StoryNode
 import com.example.tchoutchou.logic.train.Upgrade
 import com.example.tchoutchou.logic.train.Upgrades
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 
 val yellowStory = arrayOf(
     StoryNode(
@@ -21,6 +24,11 @@ val yellowStory = arrayOf(
                 it.train.upgrade(
                     Upgrade(Upgrades.RAILCAR, 1.0)
                 )
+                GlobalScope.async {
+                    while (it.state != GameState.TRANSITIONNING) {}
+                    it.train.upgrade()
+                }
+
             },
             Choice(t(R.string.Y1_choice_2), t(R.string.transition_luck_buff),"Y2") {
                 it.train.driver.addModifier(
@@ -38,9 +46,10 @@ val yellowStory = arrayOf(
         R.drawable.background_tunnel,
         arrayOf(
             Choice(t(R.string.Y2_choice_1), t(R.string.transition_locomotive_buff),"Y3") {
-                it.train.upgrade(
-                    Upgrade(Upgrades.WEAPON, 1.0)
-                )
+                GlobalScope.async {
+                    while (it.state != GameState.TRANSITIONNING) {}
+                    it.train.upgrade()
+                }
             },
             Choice(t(R.string.Y2_choice_2), t(R.string.transition_luck_buff),"Y3") {
                 it.train.driver.addModifier(

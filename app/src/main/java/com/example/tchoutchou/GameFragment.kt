@@ -66,6 +66,7 @@ class GameFragment(val game: Game): Fragment() {
         game.train.driver.display = display
         game.train.stationManager.elements = StationElements(game_station_name)
 
+        game.train.loadTexture()
         setHomeEvents()
         setShopEvents()
     }
