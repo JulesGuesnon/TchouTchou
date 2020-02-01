@@ -1,6 +1,6 @@
 # Tchoutchou :train2:
 
-Tchoutchou is a video game made for a school project where we had a week and a half to produce a mobile app. The only constraint was to use the [Navitia](<[https://www.navitia.io/](https://www.navitia.io/)>) api.
+Tchoutchou is a video game made for a school project where we had a week and a half to produce a mobile app.
 
 ## What is Tchoutchou ?
 
