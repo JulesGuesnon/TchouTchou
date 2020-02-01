@@ -27,6 +27,7 @@ class ShopFragment(val game: Game): Fragment() {
             val fragmentManager = activity?.supportFragmentManager
 
             if (fragmentManager != null) {
+                game.soundEffectManager.load(R.raw.sound_effect_click_validation, true, false)
                 game.musicManager.load(R.raw.sound_home, true, true, 1f)
                 fragmentManager.popBackStack()
             }

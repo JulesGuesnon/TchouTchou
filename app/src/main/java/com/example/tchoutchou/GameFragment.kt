@@ -64,7 +64,6 @@ class GameFragment(val game: Game): Fragment() {
 
         game.train.setElements(display, TrainElements(game_train, train_smoke))
         game.train.driver.display = display
-        game.train.stationManager.elements = StationElements(game_station_name)
 
         game.train.loadTexture()
         setHomeEvents()
@@ -73,16 +72,19 @@ class GameFragment(val game: Game): Fragment() {
 
     fun setHomeEvents() {
         start_game.setOnClickListener {
+            game.soundEffectManager.load(R.raw.sound_effect_click_validation, true, false)
             GlobalScope.async {
                 game.run()
             }
         }
 
         options.setOnClickListener {
+            game.soundEffectManager.load(R.raw.sound_effect_click_validation, true, false)
             println("options")
         }
 
         quit_game.setOnClickListener {
+            game.soundEffectManager.load(R.raw.sound_effect_click_validation, true, false)
             System.exit(0)
         }
     }
@@ -92,6 +94,7 @@ class GameFragment(val game: Game): Fragment() {
             val supportFragmentManager = activity?.supportFragmentManager
 
             if (supportFragmentManager != null) {
+                game.soundEffectManager.load(R.raw.sound_effect_click_validation, true, false)
             supportFragmentManager
                 .beginTransaction()
                 .add(R.id.fragment_container, ShopFragment.newInstance(game))
@@ -106,6 +109,7 @@ class GameFragment(val game: Game): Fragment() {
             val supportFragmentManager = activity?.supportFragmentManager
 
             if (supportFragmentManager != null) {
+                game.soundEffectManager.load(R.raw.sound_effect_click_validation, true, false)
                 supportFragmentManager
                     .beginTransaction()
                     .add(R.id.fragment_container, ShopFragment.newInstance(game))

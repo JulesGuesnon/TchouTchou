@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.view.View
 import com.example.tchoutchou.constants.backgroundRatio
 import com.example.tchoutchou.logic.Game
-import com.example.tchoutchou.logic.api.ApiService
-import com.example.tchoutchou.logic.api.StationsModel
 import com.example.tchoutchou.logic.elements.MainMenuElements
 import com.example.tchoutchou.logic.elements.ModalElements
 import com.example.tchoutchou.logic.elements.TransitionElements

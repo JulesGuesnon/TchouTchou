@@ -43,7 +43,7 @@ val pinkStory = arrayOf(
     ),
     StoryNode(
         "P3",
-        t(R.string.P1_title),
+        t(R.string.P3_title),
         t(R.string.P3_subtitle),
         t(R.string.P3_sentence),
         R.drawable.background_destroyed,

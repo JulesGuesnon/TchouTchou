@@ -248,20 +248,5 @@
         app:srcCompat="@drawable/icon_cart"
         tools:srcCompat="@drawable/icon_cart" />
 
-    <TextView
-        android:id="@+id/game_station_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Placeholder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="#FFF"
-        android:fontFamily="@font/vt323"
-        android:visibility="gone"
-        android:textSize="24dp"
-        android:alpha="0"
-        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

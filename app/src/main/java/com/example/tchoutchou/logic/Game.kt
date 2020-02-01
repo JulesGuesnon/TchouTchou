@@ -5,8 +5,6 @@ import android.os.Handler
 import android.view.Display
 import android.view.View
 import com.example.tchoutchou.R
-import com.example.tchoutchou.logic.api.ApiService
-import com.example.tchoutchou.logic.api.StationsModel
 import com.example.tchoutchou.logic.character.Character
 import com.example.tchoutchou.logic.elements.MainMenuElements
 import com.example.tchoutchou.logic.events.EventManager
@@ -70,23 +68,6 @@ class Game(val context: Context, val display: Display) {
         GlobalScope.async {
             backgroundManager.animateFromLeftToRight()
         }
-
-        ApiService.create().getStation().enqueue(object: Callback<StationsModel> {
-            override fun onFailure(call: Call<StationsModel>, t: Throwable) {
-                println("OOOOOOF")
-                println(t)
-            }
-
-            override fun onResponse(call: Call<StationsModel>, response: Response<StationsModel>) {
-                val body = response.body()
-                if (body == null) return
-                stations = body.stopAreas.map {
-                    Station(it.name)
-                }
-                train.currentStation = stations[0]
-            }
-
-        })
     }
 
     suspend fun animateTrainArrive() {
@@ -102,13 +83,10 @@ class Game(val context: Context, val display: Display) {
         train.animateFromOutsideLeftToOutsideRight()
         mainLoop@ while (train.driver.isAlive()) {
             println("Begin Game Loop $step")
-            train.currentStation = stations[step % stations.size]
 
             animateTrainArrive()
 
             train.pauseAnimation()
-
-            train.stationManager.show(train.currentStation.name)
 
             storyManager.currentNode.characters.forEachIndexed {i, it ->
                 val characterWidth = it.gifImageView?.layoutParams?.width ?: 1
@@ -134,8 +112,6 @@ class Game(val context: Context, val display: Display) {
             println("Got choice: " + choice.choice)
 
             choice.callback(this)
-
-            train.stationManager.hide()
 
             train.runAnimation()
 
@@ -197,7 +173,6 @@ class Game(val context: Context, val display: Display) {
             else -> t(R.string.transition_standard_1)
         }
 
-        train.stationManager.hide()
         transitionManager.show(endTransition)
 
         delay(500)
